@@ -6,8 +6,6 @@ import Org from "./Org"
 const OrgList = () => {
   const [orgData, setOrgData] = useState([])
 
-  const orgs = orgData.map(org => <Org />)
-
   const loadOrgs = () => {
     firebaseDb
       .collection("orgByCategory")
@@ -15,11 +13,18 @@ const OrgList = () => {
       .collection("addictionServices")
       .get()
       .then(function (querySnapshot) {
+        let orgsArray = []
         querySnapshot.forEach(function (doc) {
-          console.log(doc.id, " => ", doc.data())
+          orgsArray.push({
+            ...doc.data(),
+            id: doc.id,
+          })
         })
+        setOrgData(orgsArray)
       })
   }
+
+  const orgs = orgData.map(org => <Org org={org} key={org.id} />)
 
   useEffect(() => {
     loadOrgs()

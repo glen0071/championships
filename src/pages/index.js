@@ -12,8 +12,9 @@ const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <div className="columns">
-      <div className="column is-hidden-mobile"></div>
-      <Sidebar />
+      <div className="column is-3 is-hidden-mobile">
+        <Sidebar />
+      </div>
       <div className="column is-9">
         <h1 className="title is-3">Category Name</h1>
         <h1 className="subtitle">Category Subtitle</h1>
