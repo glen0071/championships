@@ -8,9 +8,7 @@ const OrgList = () => {
 
   const loadOrgs = () => {
     firebaseDb
-      .collection("orgByCategory")
-      .doc("VUW0JTb1OsoSLXATOmfW")
-      .collection("addictionServices")
+      .collection("organizations")
       .get()
       .then(function (querySnapshot) {
         let orgsArray = []

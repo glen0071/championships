@@ -2,32 +2,17 @@ import React, { useState, useEffect } from "react"
 import firebaseDb from "../utils/firebaseDb"
 
 const CategoryForm = () => {
-  const blankCategoryForm = { name: "" }
-  const [categoryData, setCategoryData] = useState(blankCategoryForm)
+  const [categoryName, setCategoryName] = useState("")
 
-  const loadCategories = () => {
-    firebaseDb
-      .collection("categories")
-      .get()
-      .then(function (querySnapshot) {
-        let categoriesArray = []
-        querySnapshot.forEach(function (doc) {
-          categoriesArray.push(doc.data().name)
-        })
-        setCategoryData(categoriesArray)
-      })
-  }
-
-  const updateCategoryData = event => {
-    setCategoryData({ name: event.target.value })
+  const updateCategoryName = event => {
+    setCategoryName(event.target.value)
   }
 
   const submitCategory = event => {
     event.preventDefault()
-    console.log("jere!")
     firebaseDb
       .collection("categories")
-      .add(categoryData)
+      .add({ name: categoryName })
       .then(function (docRef) {
         console.log("saved")
       })
@@ -36,19 +21,15 @@ const CategoryForm = () => {
       })
   }
 
-  useEffect(() => {
-    loadCategories()
-  }, [])
-
   return (
     <>
       <form>
         <input
           id="category"
           name="category"
-          onChange={updateCategoryData}
+          onChange={updateCategoryName}
           className="input"
-          value={categoryData.name}
+          value={categoryName}
         />
         <button className="button" onClick={submitCategory}>
           Save Category
