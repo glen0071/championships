@@ -8,6 +8,7 @@ import Sidebar from "../components/sidebar"
 import OrgForm from "../components/org-form"
 import CategoryForm from "../components/category-form"
 import ServiceForm from "../components/service-form"
+import LocationForm from "../components/location-form"
 import SEO from "../components/seo"
 
 const IndexPage = () => (
@@ -18,22 +19,28 @@ const IndexPage = () => (
         <Sidebar />
       </div>
       <div className="column is-9">
-        <div className="my-4 has-background-light">
+        <div className="my-4 has-background-grey-lighter">
           <div className="px-4 py-1 has-text-centered ">
             <h3 className="subtitle mt-6">Add Organization</h3>
             <OrgForm />
           </div>
         </div>
-        <div className="my-4 has-background-light">
+        <div className="my-4 has-background-grey-lighter">
           <div className="px-4 has-text-centered ">
             <h3 className="subtitle mt-6">Add Category</h3>
             <CategoryForm />
           </div>
         </div>
-        <div className="my-4 has-background-light">
+        <div className="my-4 has-background-grey-lighter">
           <div className="px-4 has-text-centered ">
             <h3 className="subtitle mt-6">Add Service</h3>
             <ServiceForm />
+          </div>
+        </div>
+        <div className="my-4 has-background-grey-lighter">
+          <div className="px-4 has-text-centered ">
+            <h3 className="subtitle mt-6">Add Location</h3>
+            <LocationForm />
           </div>
         </div>
       </div>

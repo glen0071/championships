@@ -14,21 +14,22 @@ const Checkbox = ({ name, onChange }) => (
 )
 
 const OrgForm = () => {
-  const formFields = ["name", "email", "phone", "address", "website"]
+  const formFields = ["name", "email", "phone", "address"]
 
   const blankOrgForm = {
     name: "",
     email: "",
     phone: "",
-    name: "",
     address: "",
     website: "",
     services: [],
     categories: [],
+    locations: [],
   }
 
   const [categoryList, setCategoryList] = useState([])
   const [servicesList, setServicesList] = useState([])
+  const [locationList, setLocationList] = useState([])
   const [newOrgData, setNewOrgData] = useState(blankOrgForm)
 
   const inputs = formFields.map(field => (
@@ -85,6 +86,22 @@ const OrgForm = () => {
     }
   }
 
+  const updateLocation = event => {
+    if (event.target.checked === true) {
+      setNewOrgData({
+        ...newOrgData,
+        locations: newOrgData.locations.concat(event.target.name),
+      })
+    } else {
+      setNewOrgData({
+        ...newOrgData,
+        locations: newOrgData.locations.filter(
+          location => location !== event.target.name
+        ),
+      })
+    }
+  }
+
   const loadCategories = () => {
     return firebaseDb
       .collection("categories")
@@ -111,6 +128,19 @@ const OrgForm = () => {
       })
   }
 
+  const loadLocations = () => {
+    return firebaseDb
+      .collection("locations")
+      .get()
+      .then(function (querySnapshot) {
+        let locationsArray = []
+        querySnapshot.forEach(function (doc) {
+          locationsArray.push(doc.data().name)
+        })
+        setLocationList(locationsArray)
+      })
+  }
+
   const submitOrg = event => {
     event.preventDefault()
 
@@ -128,10 +158,15 @@ const OrgForm = () => {
   useEffect(() => {
     loadCategories()
     loadServices()
+    loadLocations()
   }, [])
 
   const catOptions = categoryList.map(cat => (
     <Checkbox name={cat} onChange={updateCategory} key={cat} />
+  ))
+
+  const locationOptions = locationList.map(location => (
+    <Checkbox name={location} onChange={updateLocation} key={location} />
   ))
 
   const serviceOptions = servicesList.map(service => (
@@ -149,8 +184,12 @@ const OrgForm = () => {
   return (
     <>
       <form>
+        <h3 className="subtitle mt-4">Categories</h3>
         {catOptions}
+        <h3 className="subtitle mt-4">Locations</h3>
+        {locationOptions}
         {inputs}
+        <h3 className="subtitle mt-4">Services</h3>
         {serviceOptions}
         <div>
           <button

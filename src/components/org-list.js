@@ -28,7 +28,7 @@ const OrgList = () => {
     loadOrgs()
   }, [])
 
-  return <>{orgs}</>
+  return <div className="content">{orgs}</div>
 }
 
 export default OrgList
