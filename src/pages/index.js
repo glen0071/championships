@@ -9,7 +9,7 @@ import OrgList from "../components/org-list"
 import SEO from "../components/seo"
 
 const IndexPage = () => {
-  const [orgData, setOrgData] = useState([])
+  const [orgList, setOrgList] = useState([])
   const [categoryList, setCategoryList] = useState([])
 
   const loadCategories = () => {
@@ -40,7 +40,7 @@ const IndexPage = () => {
             id: doc.id,
           })
         })
-        setOrgData(orgsArray)
+        setOrgList(orgsArray)
       })
   }
 
@@ -59,7 +59,9 @@ const IndexPage = () => {
         <div className="column is-9">
           <h1 className="title is-3">Category Name</h1>
           <h1 className="subtitle">Category Subtitle</h1>
-          <OrgList />
+          <OrgList
+            orgList={orgList}
+          />
           <div className="content"></div>
         </div>
       </div>
