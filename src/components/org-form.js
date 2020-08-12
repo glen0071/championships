@@ -23,6 +23,7 @@ const OrgForm = ({ categoryList, locationList, serviceList }) => {
     address: "",
     website: "",
     services: [],
+    reportedServices: "",
     categories: [],
     locations: [],
   }
@@ -141,6 +142,18 @@ const OrgForm = ({ categoryList, locationList, serviceList }) => {
         <h3 className="subtitle mt-4">Locations</h3>
         {locationOptions}
         {inputs}
+        <div className="field">
+          <div className="control">
+            <input
+              onChange={updateOrgData}
+              value={newOrgData["reportedServices"]}
+              className="textarea"
+              placeholder="reported services"
+              id="services"
+              name="services"
+            />
+          </div>
+        </div>
         <h3 className="subtitle mt-4">Services</h3>
         {serviceOptions}
         <div>
@@ -149,7 +162,7 @@ const OrgForm = ({ categoryList, locationList, serviceList }) => {
             onClick={submitOrg}
             onChange={updateServices}
           >
-            Save
+            Save Org
           </button>
         </div>
       </form>

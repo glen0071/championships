@@ -3,7 +3,7 @@ import React from "React"
 const Org = ({ org }) => {
   return (
     <div
-      className="card my-2 px-4 column is-half has-text-centered"
+      className="card my-2 mx-2 px-4 column is-half has-text-centered"
       style={orgCard}
     >
       <h3 className="is-size-4 has-text-weight-bold">{org.name}</h3>

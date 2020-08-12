@@ -76,9 +76,10 @@ const AddDataPage = () => {
             <div className="px-4 py-1 has-text-centered ">
               <h3 className="subtitle mt-6">Add Organization</h3>
               <OrgForm
-              serviceList={serviceList}
-              locationList={locationList}
-              categoryList={categoryList} />
+                serviceList={serviceList}
+                locationList={locationList}
+                categoryList={categoryList}
+              />
             </div>
           </div>
           <div className="my-4 has-background-grey-lighter">

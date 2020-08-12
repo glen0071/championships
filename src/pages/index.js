@@ -10,6 +10,8 @@ import SEO from "../components/seo"
 
 const IndexPage = () => {
   const [orgList, setOrgList] = useState([])
+  const [filteredOrgList, setFilteredOrgList] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState("")
   const [categoryList, setCategoryList] = useState([])
 
   const loadCategories = () => {
@@ -27,6 +29,13 @@ const IndexPage = () => {
         setCategoryList(categoriesArray)
       })
   }
+
+  const selectCategory = category => {
+    console.log(orgList[0].categories)
+    console.log(category)
+  }
+
+  const filterOrgs = category => {}
 
   const loadOrgs = () => {
     firebaseDb
@@ -54,14 +63,15 @@ const IndexPage = () => {
       <SEO title="Home" />
       <div className="columns">
         <div className="column is-3 is-hidden-mobile">
-          <Sidebar categoryList={categoryList} />
+          <Sidebar
+            categoryList={categoryList}
+            selectCategory={selectCategory}
+          />
         </div>
         <div className="column is-9">
           <h1 className="title is-3">Category Name</h1>
           <h1 className="subtitle">Category Subtitle</h1>
-          <OrgList
-            orgList={orgList}
-          />
+          <OrgList orgList={orgList} />
           <div className="content"></div>
         </div>
       </div>

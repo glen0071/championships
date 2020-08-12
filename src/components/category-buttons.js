@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react"
 
-const CategoryButton = ({ cat }) => {
+const CategoryButton = ({ category }) => {
   return (
-    <div onClick={() => console.log({ cat })} className="button column is-full">
-      {cat.name}
+    <div
+      onClick={() => console.log({ category })}
+      className="button column is-full"
+    >
+      {category.name}
     </div>
   )
 }
@@ -11,8 +14,8 @@ const CategoryButton = ({ cat }) => {
 const CategoryButtons = ({ categoryList }) => {
   const categories = categoryList ? categoryList : []
 
-  const categoriesDisplayed = categories.map(cat => (
-    <CategoryButton key={cat.id} cat={cat} />
+  const categoriesDisplayed = categories.map(category => (
+    <CategoryButton key={category.id} category={category} />
   ))
 
   return <div className="buttons columns">{categoriesDisplayed}</div>
