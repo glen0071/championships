@@ -1,20 +1,17 @@
 import React from "react"
 import { Link } from "gatsby"
 
-const Header = () => {
+import CategoryButtons from "./category-buttons"
+
+const Sidebar = () => {
   return (
     <aside className="menu is-hidden-mobile">
       <p className="menu-label">Resources</p>
       <ul className="menu-list">
-        <li>
-          <a>Jobs</a>
-        </li>
-        <li>
-          <a>Homes</a>
-        </li>
+        <CategoryButtons />
       </ul>
     </aside>
   )
 }
 
-export default Header
+export default Sidebar

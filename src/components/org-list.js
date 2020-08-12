@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react"
 import firebaseDb from "../utils/firebaseDb"
 
-import Org from "./Org"
+import Org from "./org"
 
 const OrgList = () => {
   const [orgData, setOrgData] = useState([])
+  const [categoryDisplayed, setCategoryDisplayed] = useState([])
 
   const loadOrgs = () => {
     firebaseDb
@@ -28,7 +29,7 @@ const OrgList = () => {
     loadOrgs()
   }, [])
 
-  return <div className="content">{orgs}</div>
+  return <div className="content columns">{orgs}</div>
 }
 
 export default OrgList

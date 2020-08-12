@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
 
+import CategoryButtons from "./category-buttons"
+
 const HamburgerNav = () => {
   const [isActive, setIsActive] = useState(false)
 
@@ -34,11 +36,7 @@ const HamburgerNav = () => {
           <div className="navbar-item has-dropdown is-hoverable is-hidden-desktop">
             <a className="navbar-link">Resources</a>
             <div className="navbar-dropdown ">
-              <a className="navbar-item">About</a>
-              <a className="navbar-item">Jobs</a>
-              <a className="navbar-item">Contact</a>
-              <hr className="navbar-divider" />
-              <a className="navbar-item">About</a>
+              <CategoryButtons />
             </div>
           </div>
         </div>
