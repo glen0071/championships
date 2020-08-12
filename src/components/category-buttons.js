@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import firebaseDb from "../utils/firebaseDb"
 
 const CategoryButton = ({ cat }) => {
   return (
@@ -9,34 +8,14 @@ const CategoryButton = ({ cat }) => {
   )
 }
 
-const CategoryButtons = () => {
-  const [categoryData, setCategoryData] = useState([])
+const CategoryButtons = ({ categoryList }) => {
+  const categories = categoryList ? categoryList : []
 
-  const loadCategories = () => {
-    firebaseDb
-      .collection("categories")
-      .get()
-      .then(function (querySnapshot) {
-        let categoriesArray = []
-        querySnapshot.forEach(function (doc) {
-          categoriesArray.push({
-            ...doc.data(),
-            id: doc.id,
-          })
-        })
-        setCategoryData(categoriesArray)
-      })
-  }
-
-  useEffect(() => {
-    loadCategories()
-  }, [])
-
-  const categories = categoryData.map(cat => (
+  const categoriesDisplayed = categories.map(cat => (
     <CategoryButton key={cat.id} cat={cat} />
   ))
 
-  return <div className="buttons columns">{categories}</div>
+  return <div className="buttons columns">{categoriesDisplayed}</div>
 }
 
 export default CategoryButtons
