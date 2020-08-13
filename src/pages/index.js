@@ -9,9 +9,11 @@ import OrgList from "../components/org-list"
 import SEO from "../components/seo"
 
 const IndexPage = () => {
+  const [selectedCategory, setSelectedCategory] = useState(
+    "All Reentry Resources"
+  )
   const [orgList, setOrgList] = useState([])
-  const [filteredOrgList, setFilteredOrgList] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [displayedOrgList, setDisplayedOrgList] = useState([])
   const [categoryList, setCategoryList] = useState([])
 
   const loadCategories = () => {
@@ -31,11 +33,18 @@ const IndexPage = () => {
   }
 
   const selectCategory = category => {
-    console.log(orgList[0].categories)
-    console.log(category)
+    if (category.name === "All Reentry Resources") {
+      setDisplayedOrgList(orgList)
+      setSelectedCategory("All Reentry Resources")
+    } else {
+      setDisplayedOrgList(
+        orgList.filter(org => {
+          return org.categories[0] === category.name
+        })
+      )
+      setSelectedCategory(category.name)
+    }
   }
-
-  const filterOrgs = category => {}
 
   const loadOrgs = () => {
     firebaseDb
@@ -50,6 +59,7 @@ const IndexPage = () => {
           })
         })
         setOrgList(orgsArray)
+        setDisplayedOrgList(orgsArray)
       })
   }
 
@@ -66,12 +76,18 @@ const IndexPage = () => {
           <Sidebar
             categoryList={categoryList}
             selectCategory={selectCategory}
+            selectedCategory={selectedCategory}
           />
         </div>
         <div className="column is-9">
-          <h1 className="title is-3">Category Name</h1>
-          <h1 className="subtitle">Category Subtitle</h1>
-          <OrgList orgList={orgList} />
+          <h1 className="title is-3">{selectedCategory}</h1>
+          <h1 className="subtitle">We hope you find these resources helpful</h1>
+          {typeof displayedOrgList !== "undefined" &&
+          displayedOrgList.length > 0 ? (
+            <OrgList orgList={displayedOrgList} />
+          ) : (
+            <div>We can't find resources fitting this category.</div>
+          )}
           <div className="content"></div>
         </div>
       </div>

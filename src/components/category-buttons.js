@@ -1,21 +1,50 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 
-const CategoryButton = ({ category }) => {
+const CategoryButton = ({
+  category,
+  selectCategory,
+  classes,
+  selectedCategory,
+}) => {
+  const clickedCategory = category => {
+    selectCategory(category)
+  }
+
   return (
     <div
-      onClick={() => console.log({ category })}
-      className="button column is-full"
+      onClick={() => {
+        clickedCategory(category)
+        console.log(category)
+        console.log(selectedCategory)
+      }}
+      className={classes}
     >
       {category.name}
     </div>
   )
 }
 
-const CategoryButtons = ({ categoryList }) => {
+const CategoryButtons = ({
+  categoryList,
+  selectCategory,
+  selectedCategory,
+}) => {
   const categories = categoryList ? categoryList : []
 
+  const setClasses = category => {
+    return category.name === selectedCategory
+      ? "button column is-full is-active"
+      : "button column is-full"
+  }
+
   const categoriesDisplayed = categories.map(category => (
-    <CategoryButton key={category.id} category={category} />
+    <CategoryButton
+      key={category.id}
+      category={category}
+      selectCategory={selectCategory}
+      selectedCategory={selectedCategory}
+      classes={setClasses(category)}
+    />
   ))
 
   return <div className="buttons columns">{categoriesDisplayed}</div>
