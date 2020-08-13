@@ -11,20 +11,21 @@ import CategoryList from "../components/category-list"
 const EditCategorysPage = () => {
   const noCategory = {
     name: "",
+    rank: "",
   }
   const [category, setCategory] = useState(noCategory)
   const [categoryData, setCategoryData] = useState([])
 
-  const loadCategorys = () => {
+  const loadCategories = () => {
     return firebaseDb
       .collection("categories")
       .get()
       .then(function (querySnapshot) {
         let categoriesArray = []
         querySnapshot.forEach(function (doc) {
+          console.log(doc.data())
           categoriesArray.push({
             ...doc.data(),
-            id: doc.id,
           })
         })
         setCategoryData(categoriesArray)
@@ -32,7 +33,7 @@ const EditCategorysPage = () => {
   }
 
   useEffect(() => {
-    loadCategorys()
+    loadCategories()
   }, [])
 
   return (

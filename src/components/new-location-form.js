@@ -27,10 +27,11 @@ const NewLocationForm = () => {
     <>
       <form>
         <input
-          id="new-location-form"
-          name="new-location-form"
+          id="new-location-form-name"
+          name="name"
           onChange={updateLocationData}
           className="input"
+          placeholder="name"
         />
         <button className="button" onClick={submitLocation}>
           Save Location

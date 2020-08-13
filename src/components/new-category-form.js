@@ -1,18 +1,22 @@
-import React, { useState } from "react"
 import firebaseDb from "../utils/firebaseDb"
+import React, { useState } from "react"
 
 const NewCategoryForm = () => {
   const [categoryName, setCategoryName] = useState("")
+  const [category, setCategory] = useState("")
 
-  const updateCategoryName = event => {
-    setCategoryName(event.target.value)
+  function updateCategoryData(event) {
+    setCategory({
+      ...category,
+      [event.target.name]: event.target.value,
+    })
   }
 
   const submitCategory = event => {
     event.preventDefault()
     firebaseDb
       .collection("categories")
-      .add({ name: categoryName })
+      .add(category)
       .then(function (docRef) {
         console.log("saved")
       })
@@ -25,18 +29,22 @@ const NewCategoryForm = () => {
     <>
       <form>
         <input
-          id="category"
-          name="category"
-          onChange={updateCategoryName}
+          id="new-category-form-name"
+          name="name"
+          type="text"
+          onChange={updateCategoryData}
           className="input"
-          value={categoryName}
+          placeholder="name"
+          value={category.name}
         />
         <input
-          id="order"
-          name="order"
-          onChange={updateCategoryName}
+          id="new-category-form-rank"
+          type="number"
+          name="rank"
+          onChange={updateCategoryData}
           className="input"
-          value={categoryName}
+          placeholder="rank"
+          value={category.rank}
         />
         <button className="button" onClick={submitCategory}>
           Save Category

@@ -27,10 +27,11 @@ const NewServiceForm = () => {
     <>
       <form>
         <input
-          id="new-service-form"
-          name="new-service-form"
+          id="new-service-form-name"
+          name="name"
           onChange={updateServiceData}
           className="input"
+          placeholder="name"
         />
         <button className="button" onClick={submitService}>
           Save Service

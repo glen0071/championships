@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 
 const Category = ({ category, setCategory }) => {
   const selectCategory = category => {
+    console.log(category)
     setCategory(category)
   }
 

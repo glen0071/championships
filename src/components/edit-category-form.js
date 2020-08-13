@@ -36,20 +36,24 @@ const EditCategoryForm = ({
         <input
           id="edit-category-form-name"
           name="name"
+          placeholder="name"
+          type="text"
           onChange={updateCategoryData}
           className="input"
           value={category.name}
         />
         <input
-          id="edit-category-form-order"
-          name="order"
+          id="edit-category-form-rank"
+          name="rank"
+          type="number"
+          placeholder="rank"
           onChange={updateCategoryData}
           className="input"
-          value={category.name}
+          value={category.rank}
         />
-        <button className="button" onClick={updateCategory}>
+        <div className="button" onClick={updateCategory}>
           Update Category
-        </button>
+        </div>
       </form>
     </>
   )
