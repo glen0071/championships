@@ -1,22 +1,27 @@
 import React, { useState } from "react"
-import firebaseDb from "../utils/firebaseDb"
+import firebaseDb, { firebaseDatabase } from "../utils/firebaseDb"
 
-const EditLocationForm = ({ locationToEdit, setLocation, location }) => {
+const EditLocationForm = ({
+  locationToEdit,
+  setLocation,
+  location,
+  noLocation,
+}) => {
   function updateLocationData(event) {
     setLocation({
       ...location,
       name: event.target.value,
     })
-    console.log(location)
   }
 
   const updateLocation = event => {
     event.preventDefault()
     firebaseDb
       .collection("locations")
-      .add({ name: location })
+      .doc(location.id)
+      .set(location)
       .then(function (docRef) {
-        setLocation("")
+        setLocation(noLocation)
         console.log("saved")
       })
       .catch(function (error) {
@@ -29,8 +34,8 @@ const EditLocationForm = ({ locationToEdit, setLocation, location }) => {
       <form>
         <p>{locationToEdit}</p>
         <input
-          id="location-form"
-          name="location-form"
+          id="new-location-form"
+          name="new-location-form"
           onChange={updateLocationData}
           className="input"
           value={location.name}

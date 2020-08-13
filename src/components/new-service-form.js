@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import firebaseDb from "../utils/firebaseDb"
 
-const ServiceForm = () => {
+const NewServiceForm = () => {
   const [newServiceName, setNewServiceName] = useState("")
 
   function updateServiceData(event) {
@@ -27,8 +27,8 @@ const ServiceForm = () => {
     <>
       <form>
         <input
-          id="service-form"
-          name="service-form"
+          id="new-service-form"
+          name="new-service-form"
           onChange={updateServiceData}
           className="input"
         />
@@ -40,4 +40,4 @@ const ServiceForm = () => {
   )
 }
 
-export default ServiceForm
+export default NewServiceForm

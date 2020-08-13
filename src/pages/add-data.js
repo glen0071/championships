@@ -6,9 +6,9 @@ import "./styles.scss"
 import Layout from "../components/layout"
 import Sidebar from "../components/sidebar"
 import OrgForm from "../components/org-form"
-import CategoryForm from "../components/category-form"
-import ServiceForm from "../components/service-form"
-import LocationForm from "../components/location-form"
+import CategoryForm from "../components/new-category-form"
+import ServiceForm from "../components/new-service-form"
+import NewLocationForm from "../components/new-location-form"
 import SEO from "../components/seo"
 
 const AddDataPage = () => {
@@ -97,7 +97,7 @@ const AddDataPage = () => {
           <div className="my-4 has-background-grey-lighter">
             <div className="px-4 has-text-centered ">
               <h3 className="subtitle mt-6">Add Location</h3>
-              <LocationForm />
+              <NewLocationForm />
             </div>
           </div>
         </div>

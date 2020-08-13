@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import firebaseDb from "../utils/firebaseDb"
 
-const CategoryForm = () => {
+const NewCategoryForm = () => {
   const [categoryName, setCategoryName] = useState("")
 
   const updateCategoryName = event => {
@@ -31,6 +31,13 @@ const CategoryForm = () => {
           className="input"
           value={categoryName}
         />
+        <input
+          id="order"
+          name="order"
+          onChange={updateCategoryName}
+          className="input"
+          value={categoryName}
+        />
         <button className="button" onClick={submitCategory}>
           Save Category
         </button>
@@ -39,4 +46,4 @@ const CategoryForm = () => {
   )
 }
 
-export default CategoryForm
+export default NewCategoryForm

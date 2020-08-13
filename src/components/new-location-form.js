@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import firebaseDb from "../utils/firebaseDb"
 
-const LocationForm = () => {
+const NewLocationForm = () => {
   const [newLocationName, setNewLocationName] = useState("")
 
   function updateLocationData(event) {
@@ -27,8 +27,8 @@ const LocationForm = () => {
     <>
       <form>
         <input
-          id="location-form"
-          name="location-form"
+          id="new-location-form"
+          name="new-location-form"
           onChange={updateLocationData}
           className="input"
         />
@@ -40,4 +40,4 @@ const LocationForm = () => {
   )
 }
 
-export default LocationForm
+export default NewLocationForm

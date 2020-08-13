@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 
 const Location = ({ location, setLocation }) => {
   const selectLocation = location => {
-    console.log(location, "here")
     setLocation(location)
   }
 
@@ -32,13 +31,19 @@ const LocationList = ({ locationData, setLocation }) => {
 
   return (
     <>
-      {locations.map(location => (
-        <Location
-          location={location}
-          key={location.id}
-          setLocation={setLocation}
-        />
-      ))}
+      {locations
+        .sort((a, b) => {
+          if (a.name > b.name) return 1
+          if (a.name < b.name) return -1
+          return 0
+        })
+        .map(location => (
+          <Location
+            location={location}
+            key={location.id}
+            setLocation={setLocation}
+          />
+        ))}
     </>
   )
 }
