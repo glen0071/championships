@@ -14,8 +14,6 @@ const CategoryButton = ({
     <div
       onClick={() => {
         clickedCategory(category)
-        console.log(category)
-        console.log(selectedCategory)
       }}
       className={classes}
     >

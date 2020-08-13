@@ -148,7 +148,7 @@ const OrgForm = ({ categoryList, locationList, serviceList }) => {
               onChange={updateOrgData}
               value={newOrgData["reportedServices"]}
               className="textarea"
-              placeholder="reported services"
+              placeholder="reportedservices"
               id="services"
               name="services"
             />
