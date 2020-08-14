@@ -3,12 +3,13 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import firebaseDb from "../utils/firebaseDb"
+import ResourcesContext from "./resource-context"
+import OrgsContext from "./orgs-context"
 
 import Header from "./header"
 import Sidebar from "./sidebar"
 import Footer from "./footer"
 import HamburgerNav from "./hamburger-nav"
-import ResourcesContext from "./resource-context"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -44,20 +45,6 @@ const Layout = ({ children }) => {
       })
   }
 
-  const selectCategory = category => {
-    if (category.name === "All Reentry Resources") {
-      setDisplayedOrgList(orgList)
-      setSelectedCategory("All Reentry Resources")
-    } else {
-      setDisplayedOrgList(
-        orgList.filter(org => {
-          return org.categories[0] === category.name
-        })
-      )
-      setSelectedCategory(category.name)
-    }
-  }
-
   const loadOrgs = () => {
     firebaseDb
       .collection("organizations")
@@ -75,6 +62,21 @@ const Layout = ({ children }) => {
       })
   }
 
+  const selectCategory = category => {
+    if (category.name === "All Reentry Resources") {
+      setDisplayedOrgList(orgList)
+      setSelectedCategory("All Reentry Resources")
+    } else {
+      setDisplayedOrgList(
+        orgList.filter(org => {
+          // TODO: only checks first in array, make this check all cats
+          return org.categories[0] === category.name
+        })
+      )
+      setSelectedCategory(category.name)
+    }
+  }
+
   useEffect(() => {
     loadOrgs()
     loadCategories()
@@ -82,27 +84,32 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <ResourcesContext.Provider value={categoryList}>
-        <HamburgerNav />
-        <Header />
-        <main className="container">
-          <div className="columns">
-            <div className="column is-3 is-hidden-mobile">
-              <Sidebar
-                selectCategory={selectCategory}
-                selectedCategory={selectedCategory}
-              />
+      <ResourcesContext.Provider
+        value={{
+          categoryList: categoryList,
+          setSelectedCategory: setSelectedCategory,
+          selectCategory: selectCategory,
+        }}
+      >
+        <OrgsContext.Provider value={{ displayedOrgList: displayedOrgList }}>
+          <HamburgerNav />
+          <Header />
+          <main className="container">
+            <div className="columns">
+              <div className="column is-3 is-hidden-mobile">
+                <Sidebar selectedCategory={selectedCategory} />
+              </div>
+              <div className="column is-9">
+                <h1 className="title is-3">{selectedCategory}</h1>
+                <h1 className="subtitle">
+                  We hope you find these re sources helpful
+                </h1>
+                {children}
+              </div>
             </div>
-            <div className="column is-9">
-              <h1 className="title is-3">{selectedCategory}</h1>
-              <h1 className="subtitle">
-                We hope you find these re sources helpful
-              </h1>
-              {children}
-            </div>
-          </div>
-        </main>
-        <Footer />
+          </main>
+          <Footer />
+        </OrgsContext.Provider>
       </ResourcesContext.Provider>
     </>
   )

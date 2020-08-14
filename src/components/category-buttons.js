@@ -2,7 +2,9 @@ import React, { useContext } from "react"
 
 import ResourcesContext from "../components/resource-context"
 
-const CategoryButton = ({ category, selectCategory, classes }) => {
+const CategoryButton = ({ category, classes }) => {
+  const { selectCategory } = useContext(ResourcesContext)
+
   const clickedCategory = category => {
     selectCategory(category)
   }
@@ -19,8 +21,8 @@ const CategoryButton = ({ category, selectCategory, classes }) => {
   )
 }
 
-const CategoryButtons = ({ selectCategory, selectedCategory }) => {
-  const categoryList = useContext(ResourcesContext)
+const CategoryButtons = ({ selectedCategory }) => {
+  const { categoryList } = useContext(ResourcesContext)
 
   const categories = categoryList ? categoryList : []
   const setClasses = category => {
@@ -31,7 +33,6 @@ const CategoryButtons = ({ selectCategory, selectedCategory }) => {
 
   const categoriesDisplayed = categories
     .sort((a, b) => {
-      console.log(a, b)
       if (a.rank > b.rank) return 1
       if (a.rank < b.rank) return -1
       return 0
@@ -40,7 +41,6 @@ const CategoryButtons = ({ selectCategory, selectedCategory }) => {
       <CategoryButton
         key={category.id}
         category={category}
-        selectCategory={selectCategory}
         selectedCategory={selectedCategory}
         classes={setClasses(category)}
       />

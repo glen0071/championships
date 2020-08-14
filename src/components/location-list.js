@@ -24,11 +24,6 @@ const Location = ({ location, setLocation }) => {
 const LocationList = ({ locationData, setLocation }) => {
   const locations = locationData ? locationData : []
 
-  useEffect(() => {
-    console.log(locations)
-    console.log("here")
-  }, [])
-
   return (
     <>
       {locations

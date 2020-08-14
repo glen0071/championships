@@ -1,36 +1,14 @@
-import React, { useEffect, useState } from "react"
-import firebaseDb from "../utils/firebaseDb"
+import React, { useContext } from "react"
 
 import Org from "./org"
+import OrgsContext from "./orgs-context"
 
 const OrgList = () => {
-  const [orgList, setOrgList] = useState([])
-  const [displayedOrgList, setDisplayedOrgList] = useState([])
+  const { orgList, displayedOrgList } = useContext(OrgsContext)
 
-  const loadOrgs = () => {
-    firebaseDb
-      .collection("organizations")
-      .get()
-      .then(function (querySnapshot) {
-        let orgsArray = []
-        querySnapshot.forEach(function (doc) {
-          orgsArray.push({
-            ...doc.data(),
-            id: doc.id,
-          })
-        })
-        setOrgList(orgsArray)
-        setDisplayedOrgList(orgsArray)
-      })
-  }
+  const orgs = displayedOrgList.map(org => <Org org={org} key={org.id} />)
 
-  useEffect(() => {
-    loadOrgs()
-  }, [])
-
-  const orgs = orgList.map(org => <Org org={org} key={org.id} />)
-
-  return <div className="content columns">{orgs}</div>
+  return <div className="content columns">{orgs ? orgs : "Coming soon..."}</div>
 }
 
 export default OrgList

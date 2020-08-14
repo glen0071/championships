@@ -23,7 +23,6 @@ const EditCategorysPage = () => {
       .then(function (querySnapshot) {
         let categoriesArray = []
         querySnapshot.forEach(function (doc) {
-          console.log(doc.data())
           categoriesArray.push({
             ...doc.data(),
           })

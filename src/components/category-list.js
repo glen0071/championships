@@ -1,8 +1,7 @@
 import React, { useEffect } from "react"
 
 const Category = ({ category, setCategory }) => {
-  const selectCategory = category => {
-    console.log(category)
+  const clickCategory = category => {
     setCategory(category)
   }
 
@@ -13,7 +12,7 @@ const Category = ({ category, setCategory }) => {
         key={category.id}
         id={category.id}
         onClick={() => {
-          selectCategory(category)
+          clickCategory(category)
         }}
       >
         {category.name}
@@ -24,11 +23,6 @@ const Category = ({ category, setCategory }) => {
 
 const CategoryList = ({ categoryData, setCategory }) => {
   const categories = categoryData ? categoryData : []
-
-  useEffect(() => {
-    console.log(categories)
-    console.log("here")
-  }, [])
 
   return (
     <>

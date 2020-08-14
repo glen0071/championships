@@ -24,11 +24,6 @@ const Service = ({ service, setService }) => {
 const ServiceList = ({ serviceData, setService }) => {
   const services = serviceData ? serviceData : []
 
-  useEffect(() => {
-    console.log(services)
-    console.log("here")
-  }, [])
-
   return (
     <>
       {services
