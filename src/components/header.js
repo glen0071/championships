@@ -1,4 +1,3 @@
-import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 
@@ -11,7 +10,7 @@ const Header = ({ siteTitle }) => (
   >
     <div
       style={{
-        padding: `1rem 1rem`,
+        padding: `1rem 0`,
       }}
     ></div>
   </header>

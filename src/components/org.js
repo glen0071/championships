@@ -1,11 +1,16 @@
 import React from "React"
+import styled from "styled-components"
+
+const Column = styled.div`
+  border: solid 1px #085064;
+  @media only screen and (max-width: 760px) {
+    margin-left: 0 !important;
+  }
+`
 
 const Org = ({ org }) => {
   return (
-    <div
-      className="card my-2 mx-2 px-4 column is-half has-text-centered"
-      style={orgCard}
-    >
+    <Column className="my-2 ml-2 px-4 column is-half has-text-centered">
       <h3 className="is-size-4 has-text-weight-bold">{org.name}</h3>
       <div>{org.locations.join(" • ")}</div>
       <div>{org.phone}</div>
@@ -16,12 +21,8 @@ const Org = ({ org }) => {
           <div>{service}</div>
         ))}
       </ul>
-    </div>
+    </Column>
   )
-}
-
-const orgCard = {
-  border: "solid 1px #085064",
 }
 
 export default Org

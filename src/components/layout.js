@@ -83,35 +83,31 @@ const Layout = ({ children }) => {
   }, [])
 
   return (
-    <>
-      <ResourcesContext.Provider
-        value={{
-          categoryList: categoryList,
-          setSelectedCategory: setSelectedCategory,
-          selectCategory: selectCategory,
-        }}
-      >
-        <OrgsContext.Provider value={{ displayedOrgList: displayedOrgList }}>
-          <HamburgerNav />
-          <Header />
-          <main className="container">
-            <div className="columns">
-              <div className="column is-3 is-hidden-mobile">
-                <Sidebar selectedCategory={selectedCategory} />
-              </div>
-              <div className="column is-9">
-                <h1 className="title is-3">{selectedCategory}</h1>
-                <h1 className="subtitle">
-                  We hope you find these re sources helpful
-                </h1>
-                {children}
-              </div>
-            </div>
-          </main>
-          <Footer />
-        </OrgsContext.Provider>
-      </ResourcesContext.Provider>
-    </>
+    <ResourcesContext.Provider
+      value={{
+        categoryList: categoryList,
+        setSelectedCategory: setSelectedCategory,
+        selectCategory: selectCategory,
+      }}
+    >
+      <OrgsContext.Provider value={{ displayedOrgList: displayedOrgList }}>
+        <HamburgerNav />
+        <Header />
+        <div className="columns" style={{ margin: "0" }}>
+          <div className="column is-3">
+            <Sidebar selectedCategory={selectedCategory} />
+          </div>
+          <div className="column is-8">
+            <h1 className="title is-3">{selectedCategory}</h1>
+            <h1 className="subtitle">
+              We hope you find these resources helpful
+            </h1>
+            {children}
+          </div>
+        </div>
+        <Footer />
+      </OrgsContext.Provider>
+    </ResourcesContext.Provider>
   )
 }
 
