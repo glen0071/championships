@@ -1,11 +1,8 @@
-import React from "react"
+import React, { useContext } from "react"
 
-const CategoryButton = ({
-  category,
-  selectCategory,
-  classes,
-  selectedCategory,
-}) => {
+import ResourcesContext from "../components/resource-context"
+
+const CategoryButton = ({ category, selectCategory, classes }) => {
   const clickedCategory = category => {
     selectCategory(category)
   }
@@ -22,11 +19,9 @@ const CategoryButton = ({
   )
 }
 
-const CategoryButtons = ({
-  categoryList,
-  selectCategory,
-  selectedCategory,
-}) => {
+const CategoryButtons = ({ selectCategory, selectedCategory }) => {
+  const categoryList = useContext(ResourcesContext)
+
   const categories = categoryList ? categoryList : []
   const setClasses = category => {
     return category.name === selectedCategory
