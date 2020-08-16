@@ -2,9 +2,10 @@ import React from "react"
 
 import "./styles.scss"
 
-import Layout from "../components/layout"
+import Layout from "../components/layouts/layout"
+import SEO from "../components/layouts/seo"
+
 import OrgList from "../components/org-list"
-import SEO from "../components/seo"
 
 const IndexPage = () => {
   return (

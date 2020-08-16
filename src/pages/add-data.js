@@ -3,12 +3,12 @@ import firebaseDb from "../utils/firebaseDb"
 
 import "./styles.scss"
 
-import AdminLayout from "../components/admin-layout"
+import AdminLayout from "../components/layouts/admin-layout"
+
 import OrgForm from "../components/org-form"
 import CategoryForm from "../components/new-category-form"
 import ServiceForm from "../components/new-service-form"
 import NewLocationForm from "../components/new-location-form"
-import SEO from "../components/seo"
 
 const AddDataPage = () => {
   const [categoryList, setCategoryList] = useState([])
@@ -65,7 +65,6 @@ const AddDataPage = () => {
 
   return (
     <AdminLayout>
-      <SEO title="Home" />
       <div className="column">
         <div className="my-4 has-background-grey-lighter">
           <div className="px-4 py-1 ">

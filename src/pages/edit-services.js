@@ -3,7 +3,8 @@ import firebaseDb from "../utils/firebaseDb"
 
 import "./styles.scss"
 
-import Layout from "../components/layout"
+import Layout from "../components/layouts/layout"
+
 import EditServiceForm from "../components/edit-service-form"
 import NewServiceForm from "../components/new-service-form"
 import ServiceList from "../components/service-list"

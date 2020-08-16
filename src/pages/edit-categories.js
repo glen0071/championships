@@ -3,7 +3,8 @@ import firebaseDb from "../utils/firebaseDb"
 
 import "./styles.scss"
 
-import Layout from "../components/layout"
+import Layout from "../components/layouts/layout"
+
 import EditCategoryForm from "../components/edit-category-form"
 import NewCategoryForm from "../components/new-category-form"
 import CategoryList from "../components/category-list"

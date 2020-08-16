@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import App from "./app"
-
 import Header from "./header"
 import Sidebar from "./sidebar"
 import Footer from "./footer"

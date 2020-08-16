@@ -3,17 +3,32 @@ import firebaseDb from "../utils/firebaseDb"
 import ServiceContext from "../contexts/service-context"
 import LocationContext from "../contexts/location-context"
 
-const Checkbox = ({ name, onChange }) => (
-  <div id={name + "_id"}>
-    <label htmlFor={name}>{name}</label>
-    <input
-      type="checkbox"
+const ToggleButton = ({ name, updateCategory, selections, id }) => {
+  const toggle = event => {
+    event.preventDefault()
+    updateCategory(event)
+  }
+
+  const setClasses = () => {
+    if (selections.includes(name)) {
+      return "button has-background-primary"
+    } else {
+      return "button"
+    }
+  }
+
+  return (
+    <button
+      onClick={toggle}
       name={name}
-      onChange={onChange}
-      id={name + "_checkbox"}
-    />
-  </div>
-)
+      id={name + "_toggle"}
+      key={id}
+      className={setClasses(name)}
+    >
+      {name}
+    </button>
+  )
+}
 
 const OrgForm = ({ categoryList }) => {
   const formFields = ["name", "email", "phone", "address"]
@@ -57,49 +72,51 @@ const OrgForm = ({ categoryList }) => {
   }
 
   const updateCategory = event => {
-    if (event.target.checked === true) {
-      setNewOrgData({
-        ...newOrgData,
-        categories: newOrgData.categories.concat(event.target.name),
-      })
-    } else {
+    if (newOrgData.categories.includes(event.target.name)) {
       setNewOrgData({
         ...newOrgData,
         categories: newOrgData.categories.filter(
           service => service !== event.target.name
         ),
       })
+    } else {
+      setNewOrgData({
+        ...newOrgData,
+        categories: newOrgData.categories.concat(event.target.name),
+      })
     }
   }
 
   const updateServices = event => {
-    if (event.target.checked === true) {
-      setNewOrgData({
-        ...newOrgData,
-        services: newOrgData.services.concat(event.target.name),
-      })
-    } else {
+    console.log(newOrgData.services)
+    if (newOrgData.services.includes(event.target.name)) {
       setNewOrgData({
         ...newOrgData,
         services: newOrgData.services.filter(
           service => service !== event.target.name
         ),
       })
+    } else {
+      setNewOrgData({
+        ...newOrgData,
+        services: newOrgData.services.concat(event.target.name),
+      })
     }
   }
 
   const updateLocation = event => {
-    if (event.target.checked === true) {
-      setNewOrgData({
-        ...newOrgData,
-        locations: newOrgData.locations.concat(event.target.name),
-      })
-    } else {
+    console.log(newOrgData.locations)
+    if (newOrgData.locations.includes(event.target.name)) {
       setNewOrgData({
         ...newOrgData,
         locations: newOrgData.locations.filter(
           location => location !== event.target.name
         ),
+      })
+    } else {
+      setNewOrgData({
+        ...newOrgData,
+        locations: newOrgData.locations.concat(event.target.name),
       })
     }
   }
@@ -118,32 +135,27 @@ const OrgForm = ({ categoryList }) => {
       })
   }
 
-  const serviceOptions = serviceList.map(service => (
-    <div key={service.id} id={service.name + "_div"}>
-      <label htmlFor={service.name}>{service.name}</label>
-      <input
-        type="checkbox"
-        id={service.name + "_input"}
-        name={service.name}
-        value={service.name}
-      />
-    </div>
-  ))
-
   return (
     <>
       <form>
         <h3 className="subtitle mt-4">Categories</h3>
         <div>
           {categoryList.map(cat => (
-            <Checkbox name={cat.name} onChange={updateCategory} key={cat.id} />
+            <ToggleButton
+              name={cat.name}
+              updateCategory={updateCategory}
+              id={cat.id}
+              selections={newOrgData.categories}
+            />
           ))}
         </div>
         <h3 className="subtitle mt-4">Locations</h3>
         {locationList.map(location => (
-          <Checkbox
+          <ToggleButton
             name={location.name}
-            onChange={updateLocation}
+            updateCategory={updateLocation}
+            id={location.id}
+            selections={newOrgData.locations}
             key={location.id}
           />
         ))}
@@ -161,13 +173,17 @@ const OrgForm = ({ categoryList }) => {
           </div>
         </div>
         <h3 className="subtitle mt-4">Services</h3>
-        {serviceOptions}
+        {serviceList.map(service => (
+          <ToggleButton
+            name={service.name}
+            updateCategory={updateServices}
+            id={service.id}
+            selections={newOrgData.services}
+            key={service.id}
+          />
+        ))}
         <div>
-          <button
-            className="button"
-            onClick={submitOrg}
-            onChange={updateServices}
-          >
+          <button className="button" onClick={submitOrg}>
             Save Org
           </button>
         </div>

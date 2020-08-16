@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
 
-import CategoryButtons from "./category-buttons"
+import CategoryButtons from "../category-buttons"
 
 const HamburgerNav = () => {
   const [isActive, setIsActive] = useState(false)

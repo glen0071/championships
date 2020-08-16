@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import LocationContext from "../contexts/location-context"
 import ServiceContext from "../contexts/service-context"
-import firebaseDb from "../utils/firebaseDb"
+import firebaseDb from "../../utils/firebaseDb"
 
 const App = ({ children }) => {
   const [locationList, setLocationList] = useState([])

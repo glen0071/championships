@@ -3,7 +3,8 @@ import firebaseDb from "../utils/firebaseDb"
 
 import "./styles.scss"
 
-import Layout from "../components/layout"
+import Layout from "../components/layouts/layout"
+
 import EditLocationForm from "../components/edit-location-form"
 import NewLocationForm from "../components/new-location-form"
 import LocationList from "../components/location-list"
