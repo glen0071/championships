@@ -1,9 +1,9 @@
 import React, { useContext } from "react"
 
-import ResourcesContext from "../components/resource-context"
+import CategoriesContext from "../contexts/categories-context"
 
 const CategoryButton = ({ category, classes }) => {
-  const { selectCategory } = useContext(ResourcesContext)
+  const { selectCategory } = useContext(CategoriesContext)
 
   const clickedCategory = category => {
     selectCategory(category)
@@ -21,8 +21,8 @@ const CategoryButton = ({ category, classes }) => {
   )
 }
 
-const CategoryButtons = ({ selectedCategory }) => {
-  const { categoryList } = useContext(ResourcesContext)
+const CategoryButtons = () => {
+  const { categoryList, selectedCategory } = useContext(CategoriesContext)
 
   const categories = categoryList ? categoryList : []
   const setClasses = category => {
@@ -41,7 +41,6 @@ const CategoryButtons = ({ selectedCategory }) => {
       <CategoryButton
         key={category.id}
         category={category}
-        selectedCategory={selectedCategory}
         classes={setClasses(category)}
       />
     ))

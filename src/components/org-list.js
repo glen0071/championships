@@ -1,14 +1,32 @@
 import React, { useContext } from "react"
+import styled from "styled-components"
+
+import CategoriesContext from "../contexts/categories-context"
+import OrgsContext from "../contexts/orgs-context"
 
 import Org from "./org"
-import OrgsContext from "./orgs-context"
+
+const Columns = styled.div`
+  @media only screen and (max-width: 760px) {
+    padding: 0 !important;
+  }
+`
 
 const OrgList = () => {
-  const { orgList, displayedOrgList } = useContext(OrgsContext)
+  const { displayedOrgList } = useContext(OrgsContext)
+  const { selectedCategory } = useContext(CategoriesContext)
 
   const orgs = displayedOrgList.map(org => <Org org={org} key={org.id} />)
 
-  return <div className="content columns">{orgs ? orgs : "Coming soon..."}</div>
+  return (
+    <>
+      <h1 className="title is-3">{selectedCategory}</h1>
+      <h1 className="subtitle">We hope you find these resources helpful</h1>
+      <Columns className="content columns pr-3">
+        {orgs ? orgs : "Coming soon..."}
+      </Columns>
+    </>
+  )
 }
 
 export default OrgList

@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useContext } from "react"
 import firebaseDb from "../utils/firebaseDb"
+import ServiceContext from "../contexts/service-context"
+import LocationContext from "../contexts/location-context"
 
 const Checkbox = ({ name, onChange }) => (
   <div id={name + "_id"}>
@@ -13,8 +15,10 @@ const Checkbox = ({ name, onChange }) => (
   </div>
 )
 
-const OrgForm = ({ categoryList, locationList, serviceList }) => {
+const OrgForm = ({ categoryList }) => {
   const formFields = ["name", "email", "phone", "address"]
+  const { serviceList } = useContext(ServiceContext)
+  const { locationList } = useContext(LocationContext)
 
   const blankOrgForm = {
     name: "",
@@ -114,22 +118,14 @@ const OrgForm = ({ categoryList, locationList, serviceList }) => {
       })
   }
 
-  const catOptions = categoryList.map(cat => (
-    <Checkbox name={cat.name} onChange={updateCategory} key={cat.id} />
-  ))
-
-  const locationOptions = locationList.map(location => (
-    <Checkbox name={location} onChange={updateLocation} key={location} />
-  ))
-
   const serviceOptions = serviceList.map(service => (
-    <div key={service} id={service + "_div"}>
-      <label htmlFor={service}>{service}</label>
+    <div key={service.id} id={service.name + "_div"}>
+      <label htmlFor={service.name}>{service.name}</label>
       <input
         type="checkbox"
-        id={service + "_input"}
-        name={service}
-        value={service}
+        id={service.name + "_input"}
+        name={service.name}
+        value={service.name}
       />
     </div>
   ))
@@ -138,9 +134,19 @@ const OrgForm = ({ categoryList, locationList, serviceList }) => {
     <>
       <form>
         <h3 className="subtitle mt-4">Categories</h3>
-        {catOptions}
+        <div>
+          {categoryList.map(cat => (
+            <Checkbox name={cat.name} onChange={updateCategory} key={cat.id} />
+          ))}
+        </div>
         <h3 className="subtitle mt-4">Locations</h3>
-        {locationOptions}
+        {locationList.map(location => (
+          <Checkbox
+            name={location.name}
+            onChange={updateLocation}
+            key={location.id}
+          />
+        ))}
         {inputs}
         <div className="field">
           <div className="control">
