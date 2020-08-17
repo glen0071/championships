@@ -29,10 +29,20 @@ const HamburgerNav = () => {
       </div>
 
       <div id="navbarBasicExample" className={`navbar-menu ${isActiveClass()}`}>
-        <div className="navbar-start">
-          <div className="navbar-item has-dropdown is-hoverable is-hidden-desktop">
-            <a className="navbar-link">Resources</a>
-            <div className="navbar-dropdown "></div>
+        <div className="navbar-end">
+          <div className="navbar-item has-dropdown">
+            <Link className="navbar-item" to="/edit-organizations">
+              Edit Organizations
+            </Link>
+            <Link className="navbar-item" to="/edit-categories">
+              Edit Categories
+            </Link>
+            <Link className="navbar-item" to="/edit-locations">
+              Edit Locations
+            </Link>
+            <Link className="navbar-item" to="/edit-services">
+              Edit Services
+            </Link>
           </div>
         </div>
       </div>

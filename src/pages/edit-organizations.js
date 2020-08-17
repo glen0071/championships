@@ -6,9 +6,6 @@ import "./styles.scss"
 import AdminLayout from "../components/layouts/admin-layout"
 
 import OrgForm from "../components/org-form"
-import CategoryForm from "../components/new-category-form"
-import ServiceForm from "../components/new-service-form"
-import NewLocationForm from "../components/new-location-form"
 
 const AddDataPage = () => {
   const [categoryList, setCategoryList] = useState([])
@@ -74,24 +71,6 @@ const AddDataPage = () => {
               locationList={locationList}
               categoryList={categoryList}
             />
-          </div>
-        </div>
-        <div className="my-4 has-background-grey-lighter">
-          <div className="px-4 has-text-centered ">
-            <h3 className="subtitle mt-6">Add Category</h3>
-            <CategoryForm />
-          </div>
-        </div>
-        <div className="my-4 has-background-grey-lighter">
-          <div className="px-4 has-text-centered ">
-            <h3 className="subtitle mt-6">Add Service</h3>
-            <ServiceForm />
-          </div>
-        </div>
-        <div className="my-4 has-background-grey-lighter">
-          <div className="px-4 has-text-centered ">
-            <h3 className="subtitle mt-6">Add Location</h3>
-            <NewLocationForm />
           </div>
         </div>
       </div>

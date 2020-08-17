@@ -3,7 +3,7 @@ import firebaseDb from "../utils/firebaseDb"
 
 import "./styles.scss"
 
-import Layout from "../components/layouts/layout"
+import AdminLayout from "../components/layouts/admin-layout"
 
 import EditCategoryForm from "../components/edit-category-form"
 import NewCategoryForm from "../components/new-category-form"
@@ -37,7 +37,7 @@ const EditCategorysPage = () => {
   }, [])
 
   return (
-    <Layout>
+    <AdminLayout>
       <div className="columns">
         <div className="column is-9">
           <div className="my-4">
@@ -60,7 +60,7 @@ const EditCategorysPage = () => {
           <CategoryList categoryData={categoryData} setCategory={setCategory} />
         </div>
       </div>
-    </Layout>
+    </AdminLayout>
   )
 }
 

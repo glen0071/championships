@@ -3,7 +3,7 @@ import firebaseDb from "../utils/firebaseDb"
 
 import "./styles.scss"
 
-import Layout from "../components/layouts/layout"
+import AdminLayout from "../components/layouts/admin-layout"
 
 import EditServiceForm from "../components/edit-service-form"
 import NewServiceForm from "../components/new-service-form"
@@ -37,7 +37,7 @@ const EditServicesPage = () => {
   }, [])
 
   return (
-    <Layout>
+    <AdminLayout>
       <div className="columns">
         <div className="column is-9">
           <div className="my-4">
@@ -60,7 +60,7 @@ const EditServicesPage = () => {
           <ServiceList serviceData={serviceData} setService={setService} />
         </div>
       </div>
-    </Layout>
+    </AdminLayout>
   )
 }
 

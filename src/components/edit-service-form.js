@@ -35,7 +35,7 @@ const EditServiceForm = ({ serviceToEdit, setService, service, noService }) => {
           className="input"
           value={service.name}
         />
-        <button className="button" onClick={updateService}>
+        <button className="button is-info my-2" onClick={updateService}>
           Update Service
         </button>
       </form>

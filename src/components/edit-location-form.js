@@ -40,7 +40,7 @@ const EditLocationForm = ({
           className="input"
           value={location.name}
         />
-        <button className="button" onClick={updateLocation}>
+        <button className="button my-2 is-info" onClick={updateLocation}>
           Update Location
         </button>
       </form>

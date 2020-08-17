@@ -3,7 +3,7 @@ import firebaseDb from "../utils/firebaseDb"
 
 import "./styles.scss"
 
-import Layout from "../components/layouts/layout"
+import AdminLayout from "../components/layouts/admin-layout"
 
 import EditLocationForm from "../components/edit-location-form"
 import NewLocationForm from "../components/new-location-form"
@@ -37,7 +37,7 @@ const EditLocationsPage = () => {
   }, [])
 
   return (
-    <Layout>
+    <AdminLayout>
       <div className="columns">
         <div className="column is-9">
           <div className="my-4">
@@ -60,7 +60,7 @@ const EditLocationsPage = () => {
           <LocationList locationData={locationData} setLocation={setLocation} />
         </div>
       </div>
-    </Layout>
+    </AdminLayout>
   )
 }
 

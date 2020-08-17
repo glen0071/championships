@@ -80,7 +80,6 @@ const App = ({ children }) => {
     loadServices()
     loadLocations()
     loadCategories()
-    loadOrgs()
   }, [])
 
   return (

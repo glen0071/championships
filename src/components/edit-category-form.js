@@ -51,7 +51,7 @@ const EditCategoryForm = ({
           className="input"
           value={category.rank}
         />
-        <div className="button" onClick={updateCategory}>
+        <div className="button my-2 is-info" onClick={updateCategory}>
           Update Category
         </div>
       </form>
