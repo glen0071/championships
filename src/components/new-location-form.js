@@ -17,6 +17,7 @@ const NewLocationForm = () => {
       .then(function (docRef) {
         setNewLocationName("")
         console.log("saved")
+        setNewLocationName("")
       })
       .catch(function (error) {
         console.log(error, "sorry")
@@ -29,9 +30,12 @@ const NewLocationForm = () => {
         <input
           id="new-location-form-name"
           name="name"
-          onChange={updateLocationData}
+          onChange={event => {
+            setNewLocationName(event.target.value)
+          }}
           className="input"
           placeholder="name"
+          value={newLocationName}
         />
         <button className="button" onClick={submitLocation}>
           Save Location

@@ -7,6 +7,9 @@ import OrgsContext from "../contexts/orgs-context"
 import Org from "./org"
 
 const Columns = styled.div`
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
   @media only screen and (max-width: 760px) {
     padding: 0 !important;
   }
@@ -20,11 +23,11 @@ const OrgList = () => {
 
   return (
     <>
-      <h1 className="title is-3">{selectedCategory}</h1>
+      <h1 className="title is-3" onClick={() => console.log(displayedOrgList)}>
+        {selectedCategory}
+      </h1>
       <h1 className="subtitle">We hope you find these resources helpful</h1>
-      <Columns className="content columns pr-3">
-        {orgs ? orgs : "Coming soon..."}
-      </Columns>
+      <Columns className="">{orgs ? orgs : "Coming soon..."}</Columns>
     </>
   )
 }

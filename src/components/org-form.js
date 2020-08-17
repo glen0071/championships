@@ -186,6 +186,7 @@ const OrgForm = ({ categoryList }) => {
               updateCategory={updateCategory}
               id={cat.id}
               selections={newOrgData.categories}
+              key={cat.id}
             />
           ))}
         </div>
