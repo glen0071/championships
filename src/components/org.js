@@ -13,7 +13,15 @@ const Column = styled.div`
 const Org = ({ org }) => {
   return (
     <Column className="my-2 ml-1 px-4 has-text-centered">
-      <h3 className="is-size-4 has-text-weight-bold">{org.name}</h3>
+      {org.website !== undefined ? (
+        <a href={org.website} target="_blank" rel="noreferrer">
+          <h3 className="is-size-4 has-text-weight-bold color-black">
+            {org.name}
+          </h3>
+        </a>
+      ) : (
+        <h3 className="is-size-4 has-text-weight-bold">{org.name}</h3>
+      )}
       <div>{org.locations.join(" • ")}</div>
       <div>{org.phone}</div>
 

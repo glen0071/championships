@@ -46,7 +46,7 @@ const NewCategoryForm = () => {
           placeholder="rank"
           value={category.rank}
         />
-        <button className="button" onClick={submitCategory}>
+        <button className="button is-info my-2" onClick={submitCategory}>
           Save Category
         </button>
       </form>

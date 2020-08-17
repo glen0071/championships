@@ -79,6 +79,8 @@ const App = ({ children }) => {
   useEffect(() => {
     loadServices()
     loadLocations()
+    loadCategories()
+    loadOrgs()
   }, [])
 
   return (

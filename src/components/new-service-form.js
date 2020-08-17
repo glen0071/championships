@@ -33,7 +33,7 @@ const NewServiceForm = () => {
           className="input"
           placeholder="name"
         />
-        <button className="button" onClick={submitService}>
+        <button className="button is-info my-2" onClick={submitService}>
           Save Service
         </button>
       </form>

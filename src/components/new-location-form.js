@@ -37,7 +37,7 @@ const NewLocationForm = () => {
           placeholder="name"
           value={newLocationName}
         />
-        <button className="button" onClick={submitLocation}>
+        <button className="button is-info my-2" onClick={submitLocation}>
           Save Location
         </button>
       </form>

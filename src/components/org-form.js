@@ -155,15 +155,21 @@ const OrgForm = ({ categoryList }) => {
             />
           </div>
         </div>
-        <h3 className="subtitle mt-4">Published</h3>
+        <h3
+          className="subtitle mt-4"
+          onClick={() => console.log(newOrgData.published)}
+        >
+          Published
+        </h3>
         <div className="control">
           <label className="radio">
             <input
               type="radio"
               name="published"
               checked={newOrgData.published}
-              onChange={updateOrgData}
-              value={true}
+              onChange={event =>
+                setNewOrgData({ ...newOrgData, published: true })
+              }
             />
             True
           </label>
@@ -172,8 +178,9 @@ const OrgForm = ({ categoryList }) => {
               type="radio"
               name="published"
               checked={!newOrgData.published}
-              onChange={updateOrgData}
-              value={false}
+              onChange={event =>
+                setNewOrgData({ ...newOrgData, published: false })
+              }
             />
             False
           </label>
@@ -210,8 +217,8 @@ const OrgForm = ({ categoryList }) => {
             key={service.id}
           />
         ))}
-        <div>
-          <button className="button" onClick={submitOrg}>
+        <div className="buttons is-centered">
+          <button className="button is-info" onClick={submitOrg}>
             Save Org
           </button>
         </div>
