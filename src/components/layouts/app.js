@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 
-import firebaseDb from "../utils/firebaseDb"
-import CategoriesContext from "../contexts/categories-context"
-import OrgsContext from "../contexts/orgs-context"
+import firebaseDb from "../../utils/firebaseDb"
+import CategoriesContext from "../../contexts/categories-context.js"
+import OrgsContext from "../../contexts/orgs-context"
 
 const App = ({ children }) => {
   const [categoryList, setCategoryList] = useState([])
@@ -31,6 +31,7 @@ const App = ({ children }) => {
   const loadOrgs = () => {
     firebaseDb
       .collection("organizations")
+      .where("published", "==", true)
       .get()
       .then(function (querySnapshot) {
         let orgsArray = []

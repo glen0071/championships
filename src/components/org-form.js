@@ -31,7 +31,7 @@ const ToggleButton = ({ name, updateCategory, selections, id }) => {
 }
 
 const OrgForm = ({ categoryList }) => {
-  const formFields = ["name", "email", "phone", "address"]
+  const formFields = ["name", "email", "phone", "address", "website"]
   const { serviceList } = useContext(ServiceContext)
   const { locationList } = useContext(LocationContext)
 
@@ -43,6 +43,7 @@ const OrgForm = ({ categoryList }) => {
     website: "",
     services: [],
     reportedServices: "",
+    published: false,
     categories: [],
     locations: [],
   }
@@ -129,6 +130,7 @@ const OrgForm = ({ categoryList }) => {
       .add(newOrgData)
       .then(function () {
         console.log("Document successfully updated!")
+        setNewOrgData(blankOrgForm)
       })
       .catch(function (error) {
         console.error("Error updating document: ", error)
@@ -138,6 +140,44 @@ const OrgForm = ({ categoryList }) => {
   return (
     <>
       <form>
+        <h3 className="subtitle mt-4">Basic Info</h3>
+        {inputs}
+        <div className="field">
+          <div className="control">
+            <textarea
+              onChange={updateOrgData}
+              value={newOrgData.reportedServices}
+              className="textarea"
+              placeholder="reported services"
+              id="services"
+              name="reportedServices"
+              wrap="hard"
+            />
+          </div>
+        </div>
+        <h3 className="subtitle mt-4">Published</h3>
+        <div className="control">
+          <label className="radio">
+            <input
+              type="radio"
+              name="published"
+              checked={newOrgData.published}
+              onChange={updateOrgData}
+              value={true}
+            />
+            True
+          </label>
+          <label className="radio">
+            <input
+              type="radio"
+              name="published"
+              checked={!newOrgData.published}
+              onChange={updateOrgData}
+              value={false}
+            />
+            False
+          </label>
+        </div>
         <h3 className="subtitle mt-4">Categories</h3>
         <div>
           {categoryList.map(cat => (
@@ -159,19 +199,6 @@ const OrgForm = ({ categoryList }) => {
             key={location.id}
           />
         ))}
-        {inputs}
-        <div className="field">
-          <div className="control">
-            <input
-              onChange={updateOrgData}
-              value={newOrgData["reportedServices"]}
-              className="textarea"
-              placeholder="reported services"
-              id="services"
-              name="services"
-            />
-          </div>
-        </div>
         <h3 className="subtitle mt-4">Services</h3>
         {serviceList.map(service => (
           <ToggleButton

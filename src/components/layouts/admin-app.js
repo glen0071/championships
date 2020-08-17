@@ -1,11 +1,48 @@
 import React, { useEffect, useState } from "react"
-import LocationContext from "../contexts/location-context"
-import ServiceContext from "../contexts/service-context"
+import LocationContext from "../../contexts/location-context"
+import ServiceContext from "../../contexts/service-context"
 import firebaseDb from "../../utils/firebaseDb"
 
 const App = ({ children }) => {
   const [locationList, setLocationList] = useState([])
+  const [displayedOrgList, setDisplayedOrgList] = useState([])
   const [serviceList, setServiceList] = useState([])
+  const [categoryList, setCategoryList] = useState([])
+  const [orgList, setOrgList] = useState([])
+
+  const loadCategories = () => {
+    firebaseDb
+      .collection("categories")
+      .get()
+      .then(function (querySnapshot) {
+        let categoriesArray = []
+        querySnapshot.forEach(function (doc) {
+          categoriesArray.push({
+            ...doc.data(),
+            id: doc.id,
+          })
+        })
+        setCategoryList(categoriesArray)
+      })
+  }
+
+  const loadOrgs = () => {
+    firebaseDb
+      .collection("organizations")
+      .where("published", "==", true)
+      .get()
+      .then(function (querySnapshot) {
+        let orgsArray = []
+        querySnapshot.forEach(function (doc) {
+          orgsArray.push({
+            ...doc.data(),
+            id: doc.id,
+          })
+        })
+        setOrgList(orgsArray)
+        setDisplayedOrgList(orgsArray)
+      })
+  }
 
   const loadServices = () => {
     return firebaseDb
