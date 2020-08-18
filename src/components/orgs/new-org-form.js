@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react"
 import firebaseDb from "../../utils/firebaseDb"
-import ServiceContext from "../../contexts/service-context"
 import LocationContext from "../../contexts/location-context"
 import CategoriesContext from "../../contexts/categories-context"
 
@@ -33,7 +32,6 @@ const ToggleButton = ({ name, updateCategory, selections, id }) => {
 
 const OrgForm = () => {
   const formFields = ["name", "email", "phone", "address", "website"]
-  const { serviceList } = useContext(ServiceContext)
   const { locationList } = useContext(LocationContext)
   const { categoryList } = useContext(CategoriesContext)
 
@@ -44,7 +42,6 @@ const OrgForm = () => {
     address: "",
     website: "",
     services: [],
-    reportedServices: "",
     published: false,
     categories: [],
     locations: [],
@@ -79,30 +76,13 @@ const OrgForm = () => {
       setNewOrgData({
         ...newOrgData,
         categories: newOrgData.categories.filter(
-          service => service !== event.target.name
+          category => category !== event.target.name
         ),
       })
     } else {
       setNewOrgData({
         ...newOrgData,
         categories: newOrgData.categories.concat(event.target.name),
-      })
-    }
-  }
-
-  const updateServices = event => {
-    console.log(newOrgData.services)
-    if (newOrgData.services.includes(event.target.name)) {
-      setNewOrgData({
-        ...newOrgData,
-        services: newOrgData.services.filter(
-          service => service !== event.target.name
-        ),
-      })
-    } else {
-      setNewOrgData({
-        ...newOrgData,
-        services: newOrgData.services.concat(event.target.name),
       })
     }
   }
@@ -144,19 +124,6 @@ const OrgForm = () => {
       <form>
         <h3 className="subtitle mt-4">Basic Info</h3>
         {inputs}
-        <div className="field">
-          <div className="control">
-            <textarea
-              onChange={updateOrgData}
-              value={newOrgData.reportedServices}
-              className="textarea"
-              placeholder="reported services"
-              id="services"
-              name="reportedServices"
-              wrap="hard"
-            />
-          </div>
-        </div>
         <h3
           className="subtitle mt-4"
           onClick={() => console.log(newOrgData.published)}
@@ -207,16 +174,6 @@ const OrgForm = () => {
             id={location.id}
             selections={newOrgData.locations}
             key={location.id}
-          />
-        ))}
-        <h3 className="subtitle mt-4">Services</h3>
-        {serviceList.map(service => (
-          <ToggleButton
-            name={service.name}
-            updateCategory={updateServices}
-            id={service.id}
-            selections={newOrgData.services}
-            key={service.id}
           />
         ))}
         <div className="buttons is-centered">

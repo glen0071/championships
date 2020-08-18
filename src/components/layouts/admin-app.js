@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import firebaseDb from "../../utils/firebaseDb"
 
 import LocationContext from "../../contexts/location-context"
-import ServiceContext from "../../contexts/service-context"
 import CategoriesContext from "../../contexts/categories-context"
 
 const App = ({ children }) => {
@@ -50,22 +49,6 @@ const App = ({ children }) => {
       })
   }
 
-  const loadServices = () => {
-    return firebaseDb
-      .collection("services")
-      .get()
-      .then(function (querySnapshot) {
-        let servicesArray = []
-        querySnapshot.forEach(function (doc) {
-          servicesArray.push({
-            ...doc.data(),
-            id: doc.id,
-          })
-        })
-        setServiceList(servicesArray)
-      })
-  }
-
   const loadLocations = () => {
     return firebaseDb
       .collection("locations")
@@ -83,27 +66,24 @@ const App = ({ children }) => {
   }
 
   useEffect(() => {
-    loadServices()
     loadLocations()
     loadCategories()
     loadOrgs()
   }, [])
 
   return (
-    <ServiceContext.Provider value={{ serviceList: serviceList }}>
-      <CategoriesContext.Provider value={{ categoryList: categoryList }}>
-        <LocationContext.Provider
-          value={{
-            locationList: locationList,
-            noLocation: noLocation,
-            locationToEdit: locationToEdit,
-            setLocationToEdit: setLocationToEdit,
-          }}
-        >
-          {children}
-        </LocationContext.Provider>
-      </CategoriesContext.Provider>
-    </ServiceContext.Provider>
+    <CategoriesContext.Provider value={{ categoryList: categoryList }}>
+      <LocationContext.Provider
+        value={{
+          locationList: locationList,
+          noLocation: noLocation,
+          locationToEdit: locationToEdit,
+          setLocationToEdit: setLocationToEdit,
+        }}
+      >
+        {children}
+      </LocationContext.Provider>
+    </CategoriesContext.Provider>
   )
 }
 

@@ -40,9 +40,6 @@ const HamburgerNav = () => {
             <Link className="navbar-item" to="/edit-locations">
               Edit Locations
             </Link>
-            <Link className="navbar-item" to="/edit-services">
-              Edit Services
-            </Link>
           </div>
         </div>
       </div>
