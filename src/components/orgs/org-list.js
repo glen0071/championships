@@ -1,8 +1,8 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 
-import CategoriesContext from "../contexts/categories-context"
-import OrgsContext from "../contexts/orgs-context"
+import CategoriesContext from "../../contexts/categories-context"
+import OrgsContext from "../../contexts/orgs-context"
 
 import Org from "./org"
 
@@ -23,9 +23,7 @@ const OrgList = () => {
 
   return (
     <>
-      <h1 className="title is-3" onClick={() => console.log(displayedOrgList)}>
-        {selectedCategory}
-      </h1>
+      <h1 className="title is-3">{selectedCategory}</h1>
       <h1 className="subtitle">We hope you find these resources helpful</h1>
       <Columns className="">{orgs ? orgs : "Coming soon..."}</Columns>
     </>

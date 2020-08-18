@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import firebaseDb, { firebaseDatabase } from "../utils/firebaseDb"
+import firebaseDb, { firebaseDatabase } from "../../utils/firebaseDb"
 
 const EditServiceForm = ({ serviceToEdit, setService, service, noService }) => {
   function updateServiceData(event) {

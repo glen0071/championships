@@ -5,9 +5,9 @@ import "./styles.scss"
 
 import AdminLayout from "../components/layouts/admin-layout"
 
-import EditServiceForm from "../components/edit-service-form"
-import NewServiceForm from "../components/new-service-form"
-import ServiceList from "../components/service-list"
+import EditServiceForm from "../components/services/edit-service-form"
+import NewServiceForm from "../components/services/new-service-form"
+import ServiceList from "../components/services/service-list"
 
 const EditServicesPage = () => {
   const noService = {

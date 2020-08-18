@@ -1,8 +1,7 @@
-import firebaseDb from "../utils/firebaseDb"
+import firebaseDb from "../../utils/firebaseDb"
 import React, { useState } from "react"
 
 const NewCategoryForm = () => {
-  const [categoryName, setCategoryName] = useState("")
   const [category, setCategory] = useState("")
 
   function updateCategoryData(event) {

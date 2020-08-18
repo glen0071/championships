@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react"
+import firebaseDb from "../../utils/firebaseDb"
+
 import LocationContext from "../../contexts/location-context"
 import ServiceContext from "../../contexts/service-context"
-import firebaseDb from "../../utils/firebaseDb"
+import CategoriesContext from "../../contexts/categories-context"
 
 const App = ({ children }) => {
   const [locationList, setLocationList] = useState([])
@@ -9,6 +11,10 @@ const App = ({ children }) => {
   const [serviceList, setServiceList] = useState([])
   const [categoryList, setCategoryList] = useState([])
   const [orgList, setOrgList] = useState([])
+  const noLocation = {
+    name: "",
+  }
+  const [locationToEdit, setLocationToEdit] = useState(noLocation)
 
   const loadCategories = () => {
     firebaseDb
@@ -80,13 +86,23 @@ const App = ({ children }) => {
     loadServices()
     loadLocations()
     loadCategories()
+    loadOrgs()
   }, [])
 
   return (
     <ServiceContext.Provider value={{ serviceList: serviceList }}>
-      <LocationContext.Provider value={{ locationList: locationList }}>
-        {children}
-      </LocationContext.Provider>
+      <CategoriesContext.Provider value={{ categoryList: categoryList }}>
+        <LocationContext.Provider
+          value={{
+            locationList: locationList,
+            noLocation: noLocation,
+            locationToEdit: locationToEdit,
+            setLocationToEdit: setLocationToEdit,
+          }}
+        >
+          {children}
+        </LocationContext.Provider>
+      </CategoriesContext.Provider>
     </ServiceContext.Provider>
   )
 }

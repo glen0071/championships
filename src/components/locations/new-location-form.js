@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import firebaseDb from "../utils/firebaseDb"
+import firebaseDb from "../../utils/firebaseDb"
 
 const NewLocationForm = () => {
   const [newLocationName, setNewLocationName] = useState("")

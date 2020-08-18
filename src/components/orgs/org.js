@@ -24,13 +24,6 @@ const Org = ({ org }) => {
       )}
       <div>{org.locations.join(" • ")}</div>
       <div>{org.phone}</div>
-
-      <ul>
-        <span className="has-text-weight-bold">Services:</span>
-        {org.services.map(service => (
-          <div key={service}>{service}</div>
-        ))}
-      </ul>
     </Column>
   )
 }

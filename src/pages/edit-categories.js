@@ -5,9 +5,9 @@ import "./styles.scss"
 
 import AdminLayout from "../components/layouts/admin-layout"
 
-import EditCategoryForm from "../components/edit-category-form"
-import NewCategoryForm from "../components/new-category-form"
-import CategoryList from "../components/category-list"
+import EditCategoryForm from "../components/categories/edit-category-form"
+import NewCategoryForm from "../components/categories/new-category-form"
+import CategoryList from "../components/categories/category-list"
 
 const EditCategorysPage = () => {
   const noCategory = {

@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import firebaseDb, { firebaseDatabase } from "../utils/firebaseDb"
+import React from "react"
+import firebaseDb from "../../utils/firebaseDb"
 
 const EditCategoryForm = ({
   categoryToEdit,

@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 
-import CategoriesContext from "../contexts/categories-context"
+import CategoriesContext from "../../contexts/categories-context"
 
 const CategoryButton = ({ category, classes }) => {
   const { selectCategory } = useContext(CategoriesContext)

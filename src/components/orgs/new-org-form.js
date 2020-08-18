@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react"
-import firebaseDb from "../utils/firebaseDb"
-import ServiceContext from "../contexts/service-context"
-import LocationContext from "../contexts/location-context"
+import firebaseDb from "../../utils/firebaseDb"
+import ServiceContext from "../../contexts/service-context"
+import LocationContext from "../../contexts/location-context"
+import CategoriesContext from "../../contexts/categories-context"
 
 const ToggleButton = ({ name, updateCategory, selections, id }) => {
   const toggle = event => {
@@ -30,10 +31,11 @@ const ToggleButton = ({ name, updateCategory, selections, id }) => {
   )
 }
 
-const OrgForm = ({ categoryList }) => {
+const OrgForm = () => {
   const formFields = ["name", "email", "phone", "address", "website"]
   const { serviceList } = useContext(ServiceContext)
   const { locationList } = useContext(LocationContext)
+  const { categoryList } = useContext(CategoriesContext)
 
   const blankOrgForm = {
     name: "",

@@ -1,6 +1,6 @@
 import React from "react"
 
-import CategoryButtons from "../category-buttons"
+import CategoryButtons from "../categories/category-buttons"
 
 const Sidebar = () => {
   return (

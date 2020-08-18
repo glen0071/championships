@@ -1,15 +1,14 @@
-import React, { useState } from "react"
-import firebaseDb, { firebaseDatabase } from "../utils/firebaseDb"
+import React, { useContext } from "react"
+import firebaseDb from "../../utils/firebaseDb"
+import LocationContext from "../../contexts/location-context"
 
-const EditLocationForm = ({
-  locationToEdit,
-  setLocation,
-  location,
-  noLocation,
-}) => {
+const EditLocationForm = () => {
+  const { setLocationToEdit, noLocation, locationToEdit } = useContext(
+    LocationContext
+  )
   function updateLocationData(event) {
-    setLocation({
-      ...location,
+    setLocationToEdit({
+      ...locationToEdit,
       name: event.target.value,
     })
   }
@@ -18,10 +17,10 @@ const EditLocationForm = ({
     event.preventDefault()
     firebaseDb
       .collection("locations")
-      .doc(location.id)
-      .set(location)
+      .doc(locationToEdit.id)
+      .set(locationToEdit)
       .then(function (docRef) {
-        setLocation(noLocation)
+        setLocationToEdit(noLocation)
         console.log("saved")
       })
       .catch(function (error) {
@@ -32,13 +31,12 @@ const EditLocationForm = ({
   return (
     <>
       <form>
-        <p>{locationToEdit}</p>
         <input
           id="new-location-form"
           name="new-location-form"
           onChange={updateLocationData}
           className="input"
-          value={location.name}
+          value={locationToEdit.name}
         />
         <button className="button my-2 is-info" onClick={updateLocation}>
           Update Location
