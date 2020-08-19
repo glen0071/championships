@@ -41,7 +41,7 @@ const OrgForm = () => {
     phone: "",
     address: "",
     website: "",
-    services: [],
+    services: [{ name: "" }],
     published: false,
     categories: [],
     locations: [],
@@ -88,7 +88,6 @@ const OrgForm = () => {
   }
 
   const updateLocation = event => {
-    console.log(newOrgData.locations)
     if (newOrgData.locations.includes(event.target.name)) {
       setNewOrgData({
         ...newOrgData,
@@ -119,17 +118,51 @@ const OrgForm = () => {
       })
   }
 
+  const addService = event => {
+    event.preventDefault()
+    setNewOrgData({
+      ...newOrgData,
+      services: newOrgData.services.concat({ name: "" }),
+    })
+  }
+
+  const updateService = event => {
+    setNewOrgData({
+      ...newOrgData,
+      services: newOrgData.services.map((service, serviceIndex) => {
+        if (parseInt(event.target.dataset.index) !== serviceIndex) {
+          return service
+        } else {
+          return {
+            ...service,
+            name: event.target.value,
+          }
+        }
+      }),
+    })
+  }
+
   return (
     <>
       <form>
         <h3 className="subtitle mt-4">Basic Info</h3>
         {inputs}
-        <h3
-          className="subtitle mt-4"
-          onClick={() => console.log(newOrgData.published)}
-        >
-          Published
-        </h3>
+        <h3 className="subtitle mt-4">Services</h3>
+        {newOrgData.services.map((service, index) => (
+          <input
+            type="text"
+            placeholder="summarize service provided"
+            key={service + "_" + index}
+            value={service.name}
+            className="input"
+            data-index={index}
+            onChange={event => {
+              updateService(event)
+            }}
+          />
+        ))}
+        <button onClick={addService}>Add Another</button>
+        <h3 className="subtitle mt-4">Published</h3>
         <div className="control">
           <label className="radio">
             <input
