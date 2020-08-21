@@ -98,7 +98,12 @@ const App = ({ children }) => {
         setShowEditOrgModal: setShowEditOrgModal,
       }}
     >
-      <CategoriesContext.Provider value={{ categoryList: categoryList }}>
+      <CategoriesContext.Provider
+        value={{
+          categoryList: categoryList,
+          setCategoryList: setCategoryList,
+        }}
+      >
         <LocationContext.Provider
           value={{
             locationList: locationList,

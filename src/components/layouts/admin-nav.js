@@ -31,14 +31,11 @@ const HamburgerNav = () => {
       <div id="navbarBasicExample" className={`navbar-menu ${isActiveClass()}`}>
         <div className="navbar-end">
           <div className="navbar-item has-dropdown">
-            <Link className="navbar-item" to="/edit-organizations">
+            <Link className="navbar-item" to="/admin">
               Edit Organizations
             </Link>
             <Link className="navbar-item" to="/edit-categories">
               Edit Categories
-            </Link>
-            <Link className="navbar-item" to="/edit-locations">
-              Edit Locations
             </Link>
           </div>
         </div>

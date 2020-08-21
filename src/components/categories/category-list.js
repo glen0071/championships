@@ -1,4 +1,5 @@
-import React, { useEffect } from "react"
+import React, { useContext } from "react"
+import CategoriesContext from "../../contexts/categories-context"
 
 const Category = ({ category, setCategory }) => {
   const clickCategory = category => {
@@ -21,12 +22,12 @@ const Category = ({ category, setCategory }) => {
   )
 }
 
-const CategoryList = ({ categoryData, setCategory }) => {
-  const categories = categoryData ? categoryData : []
+const CategoryList = ({ setCategory }) => {
+  const { categoryList } = useContext(CategoriesContext)
 
   return (
     <>
-      {categories
+      {categoryList
         .sort((a, b) => {
           if (a.name > b.name) return 1
           if (a.name < b.name) return -1

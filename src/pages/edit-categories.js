@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import firebaseDb from "../utils/firebaseDb"
 
 import "./styles.scss"
@@ -15,26 +15,6 @@ const EditCategorysPage = () => {
     rank: "",
   }
   const [category, setCategory] = useState(noCategory)
-  const [categoryData, setCategoryData] = useState([])
-
-  const loadCategories = () => {
-    return firebaseDb
-      .collection("categories")
-      .get()
-      .then(function (querySnapshot) {
-        let categoriesArray = []
-        querySnapshot.forEach(function (doc) {
-          categoriesArray.push({
-            ...doc.data(),
-          })
-        })
-        setCategoryData(categoriesArray)
-      })
-  }
-
-  useEffect(() => {
-    loadCategories()
-  }, [])
 
   return (
     <AdminLayout>
@@ -57,7 +37,7 @@ const EditCategorysPage = () => {
         </div>
         <div className="i2-3">
           <h3 className="subtitle mt-4">Categorys</h3>
-          <CategoryList categoryData={categoryData} setCategory={setCategory} />
+          <CategoryList setCategory={setCategory} />
         </div>
       </div>
     </AdminLayout>
