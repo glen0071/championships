@@ -11,11 +11,27 @@ const Row = ({ org }) => {
   }
 
   const listServices = services => {
-    return services
-      .map(service => {
-        return service.name
-      })
-      .join(" * ")
+    if (services === undefined) {
+      return ""
+    } else {
+      return services
+        .map(service => {
+          return service.name
+        })
+        .join(" * ")
+    }
+  }
+
+  const listLocations = locations => {
+    if (locations === undefined) {
+      return ""
+    } else {
+      return locations
+        .map(location => {
+          return location.name
+        })
+        .join(" * ")
+    }
   }
 
   return (
@@ -23,7 +39,7 @@ const Row = ({ org }) => {
       <th>{org.name}</th>
       <th>{org.categories.join(", ")}</th>
       <th>{org.website}</th>
-      <th>{org.locations.join("; ")}</th>
+      <th>{listLocations(org.locations)}</th>
       <th>{listServices(org.services)}</th>
       <th>{org.published ? "Yes" : "No"}</th>
     </tr>

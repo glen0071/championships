@@ -33,7 +33,6 @@ const ToggleButton = ({ name, updateCategory, selections, id }) => {
 
 const OrgForm = () => {
   const formFields = ["name", "email", "phone", "address", "website"]
-  const { locationList } = useContext(LocationContext)
   const { categoryList } = useContext(CategoriesContext)
   const {
     displayedOrgList,
@@ -50,7 +49,7 @@ const OrgForm = () => {
     services: [{ name: "" }],
     published: false,
     categories: [],
-    locations: [],
+    locations: [{ name: "" }],
   }
 
   const [newOrgData, setNewOrgData] = useState(blankOrgForm)
@@ -93,22 +92,6 @@ const OrgForm = () => {
     }
   }
 
-  const updateLocation = event => {
-    if (newOrgData.locations.includes(event.target.name)) {
-      setNewOrgData({
-        ...newOrgData,
-        locations: newOrgData.locations.filter(
-          location => location !== event.target.name
-        ),
-      })
-    } else {
-      setNewOrgData({
-        ...newOrgData,
-        locations: newOrgData.locations.concat(event.target.name),
-      })
-    }
-  }
-
   const submitOrg = event => {
     event.preventDefault()
 
@@ -120,7 +103,7 @@ const OrgForm = () => {
           ...newOrgData,
           id: docRef.id,
         })
-        setDisplayedOrgList(displayedOrgList.unshift(newOrgData))
+        setDisplayedOrgList(displayedOrgList.concat(newOrgData))
         setShowNewOrgModal(false)
       })
       .catch(function (error) {
@@ -145,6 +128,30 @@ const OrgForm = () => {
         } else {
           return {
             ...service,
+            name: event.target.value,
+          }
+        }
+      }),
+    })
+  }
+
+  const addLocation = event => {
+    event.preventDefault()
+    setNewOrgData({
+      ...newOrgData,
+      locations: newOrgData.locations.concat({ name: "" }),
+    })
+  }
+
+  const updateLocation = event => {
+    setNewOrgData({
+      ...newOrgData,
+      locations: newOrgData.locations.map((location, locationIndex) => {
+        if (parseInt(event.target.dataset.index) !== locationIndex) {
+          return location
+        } else {
+          return {
+            ...location,
             name: event.target.value,
           }
         }
@@ -210,18 +217,32 @@ const OrgForm = () => {
           ))}
         </div>
         <h3 className="subtitle mt-4">Locations</h3>
-        {locationList.map(location => (
-          <ToggleButton
-            name={location.name}
-            updateCategory={updateLocation}
-            id={location.id}
-            selections={newOrgData.locations}
-            key={location.id}
+        {newOrgData.locations.map((location, index) => (
+          <input
+            type="text"
+            placeholder="City, State"
+            key={location + "_" + index}
+            value={location.name}
+            className="input"
+            data-index={index}
+            onChange={event => {
+              updateLocation(event)
+            }}
           />
         ))}
-        <div className="buttons is-centered">
+        <button onClick={addLocation}>Add Another</button>
+        <div className="buttons is-centered my-2">
           <button className="button is-info" onClick={submitOrg}>
             Save Org
+          </button>
+          <button
+            className="button is-info"
+            onClick={event => {
+              event.preventDefault()
+              setShowNewOrgModal(false)
+            }}
+          >
+            Cancel
           </button>
         </div>
       </form>

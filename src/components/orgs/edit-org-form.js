@@ -81,22 +81,6 @@ const OrgForm = () => {
     }
   }
 
-  const updateLocation = event => {
-    if (orgToEdit.locations.includes(event.target.name)) {
-      setOrgToEdit({
-        ...orgToEdit,
-        locations: orgToEdit.locations.filter(
-          location => location !== event.target.name
-        ),
-      })
-    } else {
-      setOrgToEdit({
-        ...orgToEdit,
-        locations: orgToEdit.locations.concat(event.target.name),
-      })
-    }
-  }
-
   const submitToFirebase = event => {
     event.preventDefault()
     firebaseDb
@@ -138,6 +122,30 @@ const OrgForm = () => {
         } else {
           return {
             ...service,
+            name: event.target.value,
+          }
+        }
+      }),
+    })
+  }
+
+  const addLocation = event => {
+    event.preventDefault()
+    setOrgToEdit({
+      ...orgToEdit,
+      locations: orgToEdit.locations.concat({ name: "" }),
+    })
+  }
+
+  const updateLocation = event => {
+    setOrgToEdit({
+      ...orgToEdit,
+      locations: orgToEdit.locations.map((location, locationIndex) => {
+        if (parseInt(event.target.dataset.index) !== locationIndex) {
+          return location
+        } else {
+          return {
+            ...location,
             name: event.target.value,
           }
         }
@@ -203,15 +211,20 @@ const OrgForm = () => {
           ))}
         </div>
         <h3 className="subtitle mt-4">Locations</h3>
-        {locationList.map(location => (
-          <ToggleButton
-            name={location.name}
-            updateCategory={updateLocation}
-            id={location.id}
-            selections={orgToEdit.locations}
-            key={location.id}
+        {orgToEdit.locations.map((location, index) => (
+          <input
+            type="text"
+            placeholder="City, State"
+            key={location + "_" + index}
+            value={location.name}
+            className="input"
+            data-index={index}
+            onChange={event => {
+              updateLocation(event)
+            }}
           />
         ))}
+        <button onClick={addLocation}>Add Another</button>
         <div className="buttons is-centered my-2">
           <button className="button is-info" onClick={submitToFirebase}>
             Save Org
