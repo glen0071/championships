@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import firebaseDb from "../utils/firebaseDb"
 
 import "./styles.scss"
 

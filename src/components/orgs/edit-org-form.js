@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useContext } from "react"
 import firebaseDb from "../../utils/firebaseDb"
 import LocationContext from "../../contexts/location-context"
 import CategoriesContext from "../../contexts/categories-context"
@@ -33,23 +33,15 @@ const ToggleButton = ({ name, updateCategory, selections, id }) => {
 
 const OrgForm = () => {
   const formFields = ["name", "email", "phone", "address", "website"]
-  const { orgToEdit, setOrgToEdit, setShowEditOrgModal } = useContext(
-    OrgsContext
-  )
+  const {
+    displayedOrgList,
+    setDisplayedOrgList,
+    orgToEdit,
+    setOrgToEdit,
+    setShowEditOrgModal,
+  } = useContext(OrgsContext)
   const { locationList } = useContext(LocationContext)
   const { categoryList } = useContext(CategoriesContext)
-
-  const blankOrgForm = {
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    website: "",
-    services: [{ name: "" }],
-    published: false,
-    categories: [],
-    locations: [],
-  }
 
   const inputs = formFields.map(field => (
     <div className="field" key={field}>
@@ -105,7 +97,7 @@ const OrgForm = () => {
     }
   }
 
-  const updatetOrg = event => {
+  const submitToFirebase = event => {
     event.preventDefault()
     firebaseDb
       .collection("organizations")
@@ -113,6 +105,15 @@ const OrgForm = () => {
       .set(orgToEdit)
       .then(function () {
         console.log("Document successfully updated!")
+        setDisplayedOrgList(
+          displayedOrgList.map(org => {
+            if (org.id === orgToEdit.id) {
+              return orgToEdit
+            } else {
+              return org
+            }
+          })
+        )
         setShowEditOrgModal(false)
       })
       .catch(function (error) {
@@ -211,18 +212,19 @@ const OrgForm = () => {
             key={location.id}
           />
         ))}
-        <div className="buttons is-centered">
-          <button className="button is-info" onClick={updatetOrg}>
+        <div className="buttons is-centered my-2">
+          <button className="button is-info" onClick={submitToFirebase}>
             Save Org
           </button>
-          <div
-            className="a is-info"
-            onClick={() => {
+          <button
+            className="button is-info"
+            onClick={event => {
+              event.preventDefault()
               setShowEditOrgModal(false)
             }}
           >
             Cancel
-          </div>
+          </button>
         </div>
       </form>
     </>

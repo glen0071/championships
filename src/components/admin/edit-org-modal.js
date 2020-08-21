@@ -21,18 +21,6 @@ const EditOrgModal = () => {
         <section className="modal-card-body">
           <EditOrgForm />
         </section>
-        <footer className="modal-card-foot">
-          <div className="button is-success">Save changes</div>
-          <div
-            onClick={() => {
-              console.log('edit')
-              setShowEditOrgModal(false)
-            }}
-            className="button is-success"
-          >
-            Cancel
-          </div>
-        </footer>
       </div>
     </div>
   )
