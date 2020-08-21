@@ -33,13 +33,11 @@ const ToggleButton = ({ name, updateCategory, selections, id }) => {
 
 const OrgForm = () => {
   const formFields = ["name", "email", "phone", "address", "website"]
+  const { orgToEdit, setOrgToEdit, setShowEditOrgModal } = useContext(
+    OrgsContext
+  )
   const { locationList } = useContext(LocationContext)
   const { categoryList } = useContext(CategoriesContext)
-  const {
-    displayedOrgList,
-    setDisplayedOrgList,
-    setShowNewOrgModal,
-  } = useContext(OrgsContext)
 
   const blankOrgForm = {
     name: "",
@@ -53,14 +51,12 @@ const OrgForm = () => {
     locations: [],
   }
 
-  const [newOrgData, setNewOrgData] = useState(blankOrgForm)
-
   const inputs = formFields.map(field => (
     <div className="field" key={field}>
       <div className="control">
         <input
           onChange={updateOrgData}
-          value={newOrgData[field]}
+          value={orgToEdit[field]}
           className="input"
           placeholder={field}
           id={field}
@@ -71,57 +67,53 @@ const OrgForm = () => {
   ))
 
   function updateOrgData(event) {
-    setNewOrgData({
-      ...newOrgData,
+    setOrgToEdit({
+      ...orgToEdit,
       [event.target.name]: event.target.value,
     })
   }
 
   const updateCategory = event => {
-    if (newOrgData.categories.includes(event.target.name)) {
-      setNewOrgData({
-        ...newOrgData,
-        categories: newOrgData.categories.filter(
+    if (orgToEdit.categories.includes(event.target.name)) {
+      setOrgToEdit({
+        ...orgToEdit,
+        categories: orgToEdit.categories.filter(
           category => category !== event.target.name
         ),
       })
     } else {
-      setNewOrgData({
-        ...newOrgData,
-        categories: newOrgData.categories.concat(event.target.name),
+      setOrgToEdit({
+        ...orgToEdit,
+        categories: orgToEdit.categories.concat(event.target.name),
       })
     }
   }
 
   const updateLocation = event => {
-    if (newOrgData.locations.includes(event.target.name)) {
-      setNewOrgData({
-        ...newOrgData,
-        locations: newOrgData.locations.filter(
+    if (orgToEdit.locations.includes(event.target.name)) {
+      setOrgToEdit({
+        ...orgToEdit,
+        locations: orgToEdit.locations.filter(
           location => location !== event.target.name
         ),
       })
     } else {
-      setNewOrgData({
-        ...newOrgData,
-        locations: newOrgData.locations.concat(event.target.name),
+      setOrgToEdit({
+        ...orgToEdit,
+        locations: orgToEdit.locations.concat(event.target.name),
       })
     }
   }
 
-  const submitOrg = event => {
+  const updatetOrg = event => {
     event.preventDefault()
-
     firebaseDb
       .collection("organizations")
-      .add(newOrgData)
-      .then(function (docRef) {
-        setNewOrgData({
-          ...newOrgData,
-          id: docRef.id,
-        })
-        setDisplayedOrgList(displayedOrgList.unshift(newOrgData))
-        setShowNewOrgModal(false)
+      .doc(orgToEdit.id)
+      .set(orgToEdit)
+      .then(function () {
+        console.log("Document successfully updated!")
+        setShowEditOrgModal(false)
       })
       .catch(function (error) {
         console.error("Error updating document: ", error)
@@ -130,16 +122,16 @@ const OrgForm = () => {
 
   const addService = event => {
     event.preventDefault()
-    setNewOrgData({
-      ...newOrgData,
-      services: newOrgData.services.concat({ name: "" }),
+    setOrgToEdit({
+      ...orgToEdit,
+      services: orgToEdit.services.concat({ name: "" }),
     })
   }
 
   const updateService = event => {
-    setNewOrgData({
-      ...newOrgData,
-      services: newOrgData.services.map((service, serviceIndex) => {
+    setOrgToEdit({
+      ...orgToEdit,
+      services: orgToEdit.services.map((service, serviceIndex) => {
         if (parseInt(event.target.dataset.index) !== serviceIndex) {
           return service
         } else {
@@ -158,7 +150,7 @@ const OrgForm = () => {
         <h3 className="subtitle mt-4">Basic Info</h3>
         {inputs}
         <h3 className="subtitle mt-4">Services</h3>
-        {newOrgData.services.map((service, index) => (
+        {orgToEdit.services.map((service, index) => (
           <input
             type="text"
             placeholder="summarize service provided"
@@ -178,9 +170,9 @@ const OrgForm = () => {
             <input
               type="radio"
               name="published"
-              checked={newOrgData.published}
+              checked={orgToEdit.published}
               onChange={event =>
-                setNewOrgData({ ...newOrgData, published: true })
+                setOrgToEdit({ ...orgToEdit, published: true })
               }
             />
             True
@@ -189,9 +181,9 @@ const OrgForm = () => {
             <input
               type="radio"
               name="published"
-              checked={!newOrgData.published}
+              checked={!orgToEdit.published}
               onChange={event =>
-                setNewOrgData({ ...newOrgData, published: false })
+                setOrgToEdit({ ...orgToEdit, published: false })
               }
             />
             False
@@ -204,7 +196,7 @@ const OrgForm = () => {
               name={cat.name}
               updateCategory={updateCategory}
               id={cat.id}
-              selections={newOrgData.categories}
+              selections={orgToEdit.categories}
               key={cat.id}
             />
           ))}
@@ -215,14 +207,22 @@ const OrgForm = () => {
             name={location.name}
             updateCategory={updateLocation}
             id={location.id}
-            selections={newOrgData.locations}
+            selections={orgToEdit.locations}
             key={location.id}
           />
         ))}
         <div className="buttons is-centered">
-          <button className="button is-info" onClick={submitOrg}>
+          <button className="button is-info" onClick={updatetOrg}>
             Save Org
           </button>
+          <div
+            className="a is-info"
+            onClick={() => {
+              setShowEditOrgModal(false)
+            }}
+          >
+            Cancel
+          </div>
         </div>
       </form>
     </>

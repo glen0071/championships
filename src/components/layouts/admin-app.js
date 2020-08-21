@@ -3,6 +3,7 @@ import firebaseDb from "../../utils/firebaseDb"
 
 import LocationContext from "../../contexts/location-context"
 import CategoriesContext from "../../contexts/categories-context"
+import OrgsContext from "../../contexts/orgs-context"
 
 const App = ({ children }) => {
   const [locationList, setLocationList] = useState([])
@@ -10,9 +11,23 @@ const App = ({ children }) => {
   const [serviceList, setServiceList] = useState([])
   const [categoryList, setCategoryList] = useState([])
   const [orgList, setOrgList] = useState([])
+  const [showEditOrgModal, setShowEditOrgModal] = useState(false)
+  const [showNewOrgModal, setShowNewOrgModal] = useState(false)
   const noLocation = {
     name: "",
   }
+  const blankOrgForm = {
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    website: "",
+    services: [{ name: "" }],
+    published: false,
+    categories: [],
+    locations: [],
+  }
+  const [orgToEdit, setOrgToEdit] = useState(blankOrgForm)
   const [locationToEdit, setLocationToEdit] = useState(noLocation)
 
   const loadCategories = () => {
@@ -34,7 +49,6 @@ const App = ({ children }) => {
   const loadOrgs = () => {
     firebaseDb
       .collection("organizations")
-      .where("published", "==", true)
       .get()
       .then(function (querySnapshot) {
         let orgsArray = []
@@ -72,18 +86,31 @@ const App = ({ children }) => {
   }, [])
 
   return (
-    <CategoriesContext.Provider value={{ categoryList: categoryList }}>
-      <LocationContext.Provider
-        value={{
-          locationList: locationList,
-          noLocation: noLocation,
-          locationToEdit: locationToEdit,
-          setLocationToEdit: setLocationToEdit,
-        }}
-      >
-        {children}
-      </LocationContext.Provider>
-    </CategoriesContext.Provider>
+    <OrgsContext.Provider
+      value={{
+        displayedOrgList: displayedOrgList,
+        setDisplayedOrgList: setDisplayedOrgList,
+        orgToEdit: orgToEdit,
+        setOrgToEdit: setOrgToEdit,
+        showEditOrgModal: showEditOrgModal,
+        showNewOrgModal: showNewOrgModal,
+        setShowNewOrgModal: setShowNewOrgModal,
+        setShowEditOrgModal: setShowEditOrgModal,
+      }}
+    >
+      <CategoriesContext.Provider value={{ categoryList: categoryList }}>
+        <LocationContext.Provider
+          value={{
+            locationList: locationList,
+            noLocation: noLocation,
+            locationToEdit: locationToEdit,
+            setLocationToEdit: setLocationToEdit,
+          }}
+        >
+          {children}
+        </LocationContext.Provider>
+      </CategoriesContext.Provider>
+    </OrgsContext.Provider>
   )
 }
 
