@@ -9,20 +9,9 @@ import Footer from "./footer"
 import HamburgerNav from "./hamburger-nav"
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
   return (
     <App>
       <HamburgerNav />
-      <Header />
       <div className="columns" style={{ margin: "0" }}>
         <div className="column is-3">
           <Sidebar />
