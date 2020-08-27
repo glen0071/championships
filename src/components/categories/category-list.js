@@ -8,26 +8,13 @@ const Category = ({ category, setCategory }) => {
     info: [{ text: "" }],
   }
 
-  const clickCategory = category => {
-    console.log(category)
-
-    setCategory({
-      ...blankCategory,
-      name: category.name,
-      rank: category.rank,
-      id: category.id,
-    })
-  }
-
   return (
     <>
       <div
         name={category.name}
         key={category.id}
         id={category.id}
-        onClick={() => {
-          clickCategory(category)
-        }}
+        onClick={() => setCategory(category)}
         className="button is-small mx-4 my-1"
       >
         {category.name}
