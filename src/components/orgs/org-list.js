@@ -25,7 +25,7 @@ const OrgList = () => {
     <>
       <h1 className="title is-3">{selectedCategory}</h1>
       <h1 className="subtitle">We hope you find these resources helpful</h1>
-      <Columns className="">{orgs ? orgs : "Coming soon..."}</Columns>
+      <Columns>{orgs ? orgs : "Coming soon..."}</Columns>
     </>
   )
 }

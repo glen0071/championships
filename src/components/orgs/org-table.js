@@ -47,19 +47,51 @@ const Row = ({ org }) => {
 }
 
 const OrgTable = () => {
-  const { displayedOrgList, setShowNewOrgModal } = useContext(OrgsContext)
+  const {
+    displayedOrgList,
+    orgList,
+    setDisplayedOrgList,
+    setShowNewOrgModal,
+  } = useContext(OrgsContext)
+
+  const filterOrgs = event => {
+    console.log(event.target.value)
+    let filterString = event.target.value
+    if (filterString === undefined || filterString === "") {
+      console.log("here")
+      setDisplayedOrgList(orgList)
+    } else {
+      console.log("tthere")
+      debugger
+      setDisplayedOrgList(
+        orgList.filter(org => {
+          org.name.toLowerCase().includes(filterString.toLowerCase())
+        })
+      )
+    }
+  }
+
   return (
     <>
       <h1 className="title is-3">Organizations</h1>
-      <button
-        onClick={event => {
-          event.preventDefault()
-          setShowNewOrgModal(true)
-        }}
-        className="button"
-      >
-        Add New Organization
-      </button>
+      <div className="columns">
+        <button
+          onClick={event => {
+            event.preventDefault()
+            setShowNewOrgModal(true)
+          }}
+          className="button column is-one-third"
+        >
+          Add New Organization
+        </button>
+        <input
+          className="input is-pulled-right column is-one-third is-offset-one-third"
+          type="text"
+          name="filter"
+          placeholder="Filter by Name"
+          onChange={event => filterOrgs(event)}
+        />
+      </div>
       <div className="table-container">
         <table className="table">
           <thead>

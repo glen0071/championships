@@ -11,6 +11,12 @@ const Column = styled.div`
 `
 
 const Org = ({ org }) => {
+  const displayLocations = locations => {
+    return locations.map(location => {
+      return location.name
+    })
+  }
+
   return (
     <Column className="my-2 ml-1 px-4 has-text-centered">
       {org.website === undefined || org.website === "" ? (
@@ -22,7 +28,7 @@ const Org = ({ org }) => {
           </h3>
         </a>
       )}
-      <div>{org.locations.join(" • ")}</div>
+      <div>{displayLocations(org.locations).join(" • ")}</div>
       <div>{org.phone}</div>
     </Column>
   )

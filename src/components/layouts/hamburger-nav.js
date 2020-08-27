@@ -40,6 +40,16 @@ const HamburgerNav = () => {
             </div>
           </div>
         </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <Link className="navbar-item is-pulled-right" to="/about">
+                About
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   )

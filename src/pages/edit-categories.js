@@ -8,13 +8,7 @@ import EditCategoryForm from "../components/categories/edit-category-form"
 import NewCategoryForm from "../components/categories/new-category-form"
 import CategoryList from "../components/categories/category-list"
 
-const EditCategorysPage = () => {
-  const noCategory = {
-    name: "",
-    rank: "",
-  }
-  const [category, setCategory] = useState(noCategory)
-
+const EditCategoriesPage = () => {
   return (
     <AdminLayout>
       <div className="columns">
@@ -22,25 +16,20 @@ const EditCategorysPage = () => {
           <div className="my-4">
             <div className="px-4 has-text-centered has-background-grey-lighter py-4 my-4">
               <h3 className="subtitle mt-6">Add Category</h3>
-              <NewCategoryForm />
             </div>
             <div className="px-4 has-text-centered has-background-grey-lighter py-4 my-4">
               <h3 className="subtitle mt-6">Edit Category</h3>
-              <EditCategoryForm
-                category={category}
-                setCategory={setCategory}
-                noCategory={noCategory}
-              />
+              <EditCategoryForm />
             </div>
           </div>
         </div>
         <div className="i2-3">
-          <h3 className="subtitle mt-4">Categorys</h3>
-          <CategoryList setCategory={setCategory} />
+          <h3 className="subtitle mt-4">Select Category to Edit</h3>
+          <CategoryList />
         </div>
       </div>
     </AdminLayout>
   )
 }
 
-export default EditCategorysPage
+export default EditCategoriesPage

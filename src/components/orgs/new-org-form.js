@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react"
 import firebaseDb from "../../utils/firebaseDb"
-import LocationContext from "../../contexts/location-context"
 import CategoriesContext from "../../contexts/categories-context"
 import OrgsContext from "../../contexts/orgs-context"
 

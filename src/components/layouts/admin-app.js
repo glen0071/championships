@@ -8,15 +8,18 @@ import OrgsContext from "../../contexts/orgs-context"
 const App = ({ children }) => {
   const [locationList, setLocationList] = useState([])
   const [displayedOrgList, setDisplayedOrgList] = useState([])
-  const [serviceList, setServiceList] = useState([])
   const [categoryList, setCategoryList] = useState([])
   const [orgList, setOrgList] = useState([])
   const [showEditOrgModal, setShowEditOrgModal] = useState(false)
+
   const [showNewOrgModal, setShowNewOrgModal] = useState(false)
+
   const noLocation = {
     name: "",
   }
-  const blankOrgForm = {
+  const [locationToEdit, setLocationToEdit] = useState(noLocation)
+
+  const blankOrg = {
     name: "",
     email: "",
     phone: "",
@@ -27,8 +30,14 @@ const App = ({ children }) => {
     categories: [],
     locations: [],
   }
-  const [orgToEdit, setOrgToEdit] = useState(blankOrgForm)
-  const [locationToEdit, setLocationToEdit] = useState(noLocation)
+  const [orgToEdit, setOrgToEdit] = useState(blankOrg)
+
+  const blankCategory = {
+    name: "",
+    rank: "",
+    info: [{ text: "" }],
+  }
+  const [category, setCategory] = useState(blankCategory)
 
   const loadCategories = () => {
     firebaseDb
@@ -88,6 +97,7 @@ const App = ({ children }) => {
   return (
     <OrgsContext.Provider
       value={{
+        orgList: orgList,
         displayedOrgList: displayedOrgList,
         setDisplayedOrgList: setDisplayedOrgList,
         orgToEdit: orgToEdit,
@@ -102,6 +112,9 @@ const App = ({ children }) => {
         value={{
           categoryList: categoryList,
           setCategoryList: setCategoryList,
+          category: category,
+          setCategory: setCategory,
+          blankCategory: blankCategory,
         }}
       >
         <LocationContext.Provider

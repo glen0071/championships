@@ -1,12 +1,11 @@
-import React from "react"
+import React, { useContext } from "react"
 import firebaseDb from "../../utils/firebaseDb"
 
-const EditCategoryForm = ({
-  categoryToEdit,
-  setCategory,
-  category,
-  noCategory,
-}) => {
+import CategoriesContext from "../../contexts/categories-context"
+
+const EditCategoryForm = () => {
+  const { setCategory, category, blankCategory } = useContext(CategoriesContext)
+
   function updateCategoryData(event) {
     setCategory({
       ...category,
@@ -20,19 +19,54 @@ const EditCategoryForm = ({
       .collection("categories")
       .doc(category.id)
       .set(category)
-      .then(function (docRef) {
-        setCategory(noCategory)
-        console.log("saved")
+      .then(() => {
+        setCategory(blankCategory)
       })
       .catch(function (error) {
         console.log(error, "sorry")
       })
   }
 
+  const addParagraph = event => {
+    event.preventDefault()
+    setCategory({
+      ...category,
+      info: category.info.concat({ text: "" }),
+    })
+  }
+
+  const updateInfo = event => {
+    setCategory({
+      ...category,
+      info: category.info.map((info, infoIndex) => {
+        if (parseInt(event.target.dataset.index) !== infoIndex) {
+          return info
+        } else {
+          return {
+            ...info,
+            text: event.target.value,
+          }
+        }
+      }),
+    })
+  }
+
   return (
     <>
       <form>
-        <p>{categoryToEdit}</p>
+        {category.info.map((infoObject, index) => (
+          <textarea
+            id={`edit-category-form-info-${index}`}
+            key={category.id + "InfoParagraph" + index + 1}
+            name="info"
+            placeholder={`info paragraph ${index + 1}`}
+            onChange={event => updateInfo(event)}
+            className="textarea"
+            data-index={index}
+            value={infoObject.text}
+          />
+        ))}
+        <button onClick={addParagraph}>Add Another Paragraph</button>
         <input
           id="edit-category-form-name"
           name="name"
