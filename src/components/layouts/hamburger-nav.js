@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react"
-import { Link } from "gatsby"
 import styled from "styled-components"
 
 import CategoriesContext from "../../contexts/categories-context"

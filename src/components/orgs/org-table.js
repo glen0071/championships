@@ -1,6 +1,13 @@
 import React, { useContext } from "react"
+import styled from "styled-components"
 
 import OrgsContext from "../../contexts/orgs-context"
+
+const HoverRow = styled.tr`
+  :hover {
+    cursor: pointer;
+  }
+`
 
 const Row = ({ org }) => {
   const { setShowEditOrgModal, setOrgToEdit } = useContext(OrgsContext)
@@ -35,14 +42,14 @@ const Row = ({ org }) => {
   }
 
   return (
-    <tr onClick={selectOrgToEdit} key={org.id}>
+    <HoverRow onClick={selectOrgToEdit} key={org.id}>
       <th>{org.name}</th>
       <th>{org.categories.join(", ")}</th>
       <th>{org.website}</th>
       <th>{listLocations(org.locations)}</th>
       <th>{listServices(org.services)}</th>
       <th>{org.published ? "Yes" : "No"}</th>
-    </tr>
+    </HoverRow>
   )
 }
 
@@ -69,7 +76,7 @@ const OrgTable = () => {
 
   return (
     <>
-      <h1 className="title is-3">Organizations</h1>
+      <h1 className="title is-3">Resources</h1>
       <div className="columns">
         <button
           onClick={event => {
@@ -78,7 +85,7 @@ const OrgTable = () => {
           }}
           className="button column is-one-third"
         >
-          Add New Organization
+          Add New Resource
         </button>
         <input
           className="input is-pulled-right column is-one-third is-offset-one-third"

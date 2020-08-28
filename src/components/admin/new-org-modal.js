@@ -11,7 +11,7 @@ const NewOrgModal = () => {
       <div className="modal-background"></div>
       <div className="modal-card">
         <header className="modal-card-head">
-          <p className="modal-card-title">New Organization</p>
+          <p className="modal-card-title">New Resource</p>
           <button
             className="delete"
             onClick={() => setShowNewOrgModal(false)}
