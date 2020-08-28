@@ -40,7 +40,7 @@ const OrgList = () => {
         <>
           <h1 className="title is-3">{selectedCategory.name}</h1>
           <h1 className="subtitle">We hope you find these resources helpful</h1>
-          {false > 0 ? (
+          {displayedOrgList.length > 0 ? (
             <>
               <IntroInfo />
               <Columns>{orgs ? orgs : "Coming soon..."}</Columns>
