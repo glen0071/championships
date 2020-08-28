@@ -4,8 +4,8 @@ import "./styles.scss"
 
 import AdminLayout from "../components/layouts/admin-layout"
 
-import EditCategoryForm from "../components/categories/edit-category-form"
-import NewCategoryForm from "../components/categories/new-category-form"
+import EditCategory from "../components/categories/edit-category"
+import NewCategory from "../components/categories/new-category"
 import CategoryList from "../components/categories/category-list"
 
 const EditCategoriesPage = () => {
@@ -16,10 +16,11 @@ const EditCategoriesPage = () => {
           <div className="my-4">
             <div className="px-4 has-text-centered has-background-grey-lighter py-4 my-4">
               <h3 className="subtitle mt-6">Add Category</h3>
+              <NewCategory />
             </div>
             <div className="px-4 has-text-centered has-background-grey-lighter py-4 my-4">
               <h3 className="subtitle mt-6">Edit Category</h3>
-              <EditCategoryForm />
+              <EditCategory />
             </div>
           </div>
         </div>

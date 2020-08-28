@@ -1,12 +1,10 @@
 import React from "react"
-import "./styles.scss"
 
-import Layout from "../components/layouts/layout"
-import SEO from "../components/layouts/seo"
+import SEO from "../layouts/seo"
 
 const AboutPage = () => {
   return (
-    <Layout>
+    <>
       <SEO title="About" />
       <div className="title mt-4 mx-2">Reentry Minnesota</div>
       <div className="subtitle mt-4 mx-2">
@@ -14,17 +12,22 @@ const AboutPage = () => {
         system.
       </div>
       <div className="container">
-        <p clasName="my-5">
+        <p className="my-5">
           Built by{" "}
-          <a rel="noopener" href="https://eddieglenn.com">
+          <a target="_blank" rel="noopener" href="https://eddieglenn.com">
             Eddie Glenn
           </a>
           ,{" "}
-          <a rel="noopener" href="https://www.linkedin.com/in/amandasperow/">
+          <a
+            target="_blank"
+            rel="noopener"
+            href="https://www.linkedin.com/in/amandasperow/"
+          >
             Amanda Sperow
           </a>
           ,{" "}
           <a
+            target="_blank"
             rel="noopener"
             href="https://mitchellhamline.edu/biographies/person/jon-geffen/"
           >
@@ -32,6 +35,7 @@ const AboutPage = () => {
           </a>
           , and{" "}
           <a
+            target="_blank"
             rel="noopener"
             href="https://mitchellhamline.edu/biographies/person/bradford-colbert/"
           >
@@ -39,11 +43,14 @@ const AboutPage = () => {
           </a>
         </p>
         <p>
-          You can <a href="mailto:eddie@eddieglenn.com">email Eddie</a> with
-          questions or suggestions on how this site could be more helpful.
+          You can{" "}
+          <a target="_blank" rel="noopener" href="mailto:eddie@eddieglenn.com">
+            email Eddie
+          </a>{" "}
+          with questions or suggestions on how this site could be more helpful.
         </p>
       </div>
-    </Layout>
+    </>
   )
 }
 

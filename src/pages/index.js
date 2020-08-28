@@ -1,10 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import "./styles.scss"
 
 import Layout from "../components/layouts/layout"
 import SEO from "../components/layouts/seo"
-
 import OrgList from "../components/orgs/org-list"
 
 const IndexPage = () => {

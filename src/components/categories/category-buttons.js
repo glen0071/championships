@@ -1,12 +1,15 @@
 import React, { useContext } from "react"
 
 import CategoriesContext from "../../contexts/categories-context"
+import AboutContext from "../../contexts/about-context"
 
 const CategoryButton = ({ category, classes }) => {
   const { selectCategory } = useContext(CategoriesContext)
+  const { setShowAbout } = useContext(AboutContext)
 
   const clickedCategory = category => {
     selectCategory(category)
+    setShowAbout(false)
   }
 
   return (
@@ -26,7 +29,7 @@ const CategoryButtons = () => {
 
   const categories = categoryList ? categoryList : []
   const setClasses = category => {
-    return category.name === selectedCategory
+    return category.name === selectedCategory.name
       ? "button column is-full is-active"
       : "button column is-full"
   }

@@ -8,10 +8,11 @@ import Sidebar from "./sidebar"
 import Footer from "./footer"
 import HamburgerNav from "./hamburger-nav"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, aboutPage }) => {
   return (
     <App>
-      <HamburgerNav />
+      <HamburgerNav aboutPage={aboutPage} />
+      <Header />
       <div className="columns" style={{ margin: "0" }}>
         <div className="column is-3">
           <Sidebar />

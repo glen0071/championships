@@ -1,30 +1,15 @@
 import React, { useContext } from "react"
-import firebaseDb from "../../utils/firebaseDb"
 
 import CategoriesContext from "../../contexts/categories-context"
 
-const EditCategoryForm = () => {
-  const { setCategory, category, blankCategory } = useContext(CategoriesContext)
+const EditCategoryForm = ({ onClickAction }) => {
+  const { setCategory, category } = useContext(CategoriesContext)
 
   function updateCategoryData(event) {
     setCategory({
       ...category,
       [event.target.name]: event.target.value,
     })
-  }
-
-  const updateCategory = event => {
-    event.preventDefault()
-    firebaseDb
-      .collection("categories")
-      .doc(category.id)
-      .set(category)
-      .then(() => {
-        setCategory(blankCategory)
-      })
-      .catch(function (error) {
-        console.log(error, "sorry")
-      })
   }
 
   const addParagraph = event => {
@@ -85,8 +70,8 @@ const EditCategoryForm = () => {
           className="input"
           value={category.rank}
         />
-        <div className="button my-2 is-info" onClick={updateCategory}>
-          Update Category
+        <div className="button my-2 is-info" onClick={onClickAction}>
+          Save Category
         </div>
       </form>
     </>

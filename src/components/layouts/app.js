@@ -3,12 +3,16 @@ import React, { useEffect, useState } from "react"
 import firebaseDb from "../../utils/firebaseDb"
 import CategoriesContext from "../../contexts/categories-context.js"
 import OrgsContext from "../../contexts/orgs-context"
+import AboutContext from "../../contexts/about-context"
 
 const App = ({ children }) => {
+  const defaultCategory = {
+    name: "All Reentry Resources",
+    info: [{ text: "" }],
+  }
   const [categoryList, setCategoryList] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState(
-    "All Reentry Resources"
-  )
+  const [showAbout, setShowAbout] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState(defaultCategory)
   const [displayedOrgList, setDisplayedOrgList] = useState([])
   const [orgList, setOrgList] = useState([])
 
@@ -49,7 +53,10 @@ const App = ({ children }) => {
   const selectCategory = category => {
     if (category.name === "All Reentry Resources") {
       setDisplayedOrgList(orgList)
-      setSelectedCategory("All Reentry Resources")
+      setSelectedCategory({
+        name: "All Reentry Resources",
+        info: [{ text: "" }],
+      })
     } else {
       setDisplayedOrgList(
         orgList.filter(org => {
@@ -57,7 +64,7 @@ const App = ({ children }) => {
           return org.categories[0] === category.name
         })
       )
-      setSelectedCategory(category.name)
+      setSelectedCategory(category)
     }
   }
 
@@ -73,10 +80,18 @@ const App = ({ children }) => {
         selectedCategory: selectedCategory,
         setSelectedCategory: setSelectedCategory,
         selectCategory: selectCategory,
+        defaultCategory: defaultCategory,
       }}
     >
       <OrgsContext.Provider value={{ displayedOrgList: displayedOrgList }}>
-        {children}
+        <AboutContext.Provider
+          value={{
+            showAbout: showAbout,
+            setShowAbout: setShowAbout,
+          }}
+        >
+          {children}
+        </AboutContext.Provider>
       </OrgsContext.Provider>
     </CategoriesContext.Provider>
   )

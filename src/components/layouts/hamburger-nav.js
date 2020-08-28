@@ -1,27 +1,44 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import { Link } from "gatsby"
+import styled from "styled-components"
+
+import CategoriesContext from "../../contexts/categories-context"
+import AboutContext from "../../contexts/about-context"
 
 import CategoryButtons from "../categories/category-buttons"
 
+const HoverLink = styled.div`
+  :hover {
+    cursor: pointer;
+  }
+`
+
 const HamburgerNav = () => {
+  const { setShowAbout } = useContext(AboutContext)
   const [isActive, setIsActive] = useState(false)
+  const { selectCategory, defaultCategory } = useContext(CategoriesContext)
 
   const isActiveClass = () => {
     return isActive ? "is-active" : ""
   }
 
+  const goHome = () => {
+    setShowAbout(false)
+    selectCategory(defaultCategory)
+  }
+
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <Link className="navbar-item" to="/">
+        <HoverLink className="navbar-item" onClick={goHome}>
           Reentry MN
-        </Link>
+        </HoverLink>
 
         <a
           role="button"
           className={`navbar-burger burger ${isActiveClass()}`}
           aria-label="menu"
-          aria-expanded="false"
+          aria-expanded="fa"
           data-target="navbarBasicExample"
           onClick={() => setIsActive(!isActive)}
         >
@@ -41,12 +58,15 @@ const HamburgerNav = () => {
           </div>
         </div>
 
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <Link className="navbar-item is-pulled-right" to="/about">
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <div className="buttons">
+              <HoverLink
+                className="navbar-item is-pulled-right"
+                onClick={() => setShowAbout(true)}
+              >
                 About
-              </Link>
+              </HoverLink>
             </div>
           </div>
         </div>

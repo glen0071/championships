@@ -3,7 +3,10 @@ import styled from "styled-components"
 
 import CategoriesContext from "../../contexts/categories-context"
 import OrgsContext from "../../contexts/orgs-context"
+import AboutContext from "../../contexts/about-context"
 
+import IntroInfo from "../layouts/intro-info"
+import About from "../layouts/about"
 import Org from "./org"
 
 const Columns = styled.div`
@@ -18,14 +21,22 @@ const Columns = styled.div`
 const OrgList = () => {
   const { displayedOrgList } = useContext(OrgsContext)
   const { selectedCategory } = useContext(CategoriesContext)
+  const { showAbout } = useContext(AboutContext)
 
   const orgs = displayedOrgList.map(org => <Org org={org} key={org.id} />)
 
   return (
     <>
-      <h1 className="title is-3">{selectedCategory}</h1>
-      <h1 className="subtitle">We hope you find these resources helpful</h1>
-      <Columns>{orgs ? orgs : "Coming soon..."}</Columns>
+      {showAbout ? (
+        <About />
+      ) : (
+        <>
+          <h1 className="title is-3">{selectedCategory.name}</h1>
+          <h1 className="subtitle">We hope you find these resources helpful</h1>
+          <IntroInfo />
+          <Columns>{orgs ? orgs : "Coming soon..."}</Columns>
+        </>
+      )}
     </>
   )
 }

@@ -35,7 +35,7 @@ const Row = ({ org }) => {
   }
 
   return (
-    <tr onClick={selectOrgToEdit}>
+    <tr onClick={selectOrgToEdit} key={org.id}>
       <th>{org.name}</th>
       <th>{org.categories.join(", ")}</th>
       <th>{org.website}</th>
@@ -55,17 +55,13 @@ const OrgTable = () => {
   } = useContext(OrgsContext)
 
   const filterOrgs = event => {
-    console.log(event.target.value)
     let filterString = event.target.value
     if (filterString === undefined || filterString === "") {
-      console.log("here")
       setDisplayedOrgList(orgList)
     } else {
-      console.log("tthere")
-      debugger
       setDisplayedOrgList(
         orgList.filter(org => {
-          org.name.toLowerCase().includes(filterString.toLowerCase())
+          return org.name.toLowerCase().includes(filterString.toLowerCase())
         })
       )
     }
@@ -106,7 +102,7 @@ const OrgTable = () => {
           </thead>
           <tbody>
             {displayedOrgList.map(org => (
-              <Row key={org.id} org={org} />
+              <Row org={org} key={org.id} />
             ))}
           </tbody>
         </table>
