@@ -83,7 +83,9 @@ const App = ({ children }) => {
         defaultCategory: defaultCategory,
       }}
     >
-      <OrgsContext.Provider value={{ displayedOrgList: displayedOrgList }}>
+      <OrgsContext.Provider
+        value={{ displayedOrgList: displayedOrgList, orgList: orgList }}
+      >
         <AboutContext.Provider
           value={{
             showAbout: showAbout,

@@ -26,12 +26,12 @@ const Columns = styled.div`
 `
 
 const OrgList = () => {
-  const { displayedOrgList } = useContext(OrgsContext)
+  const { displayedOrgList, orgList } = useContext(OrgsContext)
   const { selectedCategory } = useContext(CategoriesContext)
   const { showAbout } = useContext(AboutContext)
 
   const orgs = displayedOrgList.map(org => <Org org={org} key={org.id} />)
-  const emptyArray = []
+
   return (
     <>
       {showAbout ? (
@@ -40,10 +40,10 @@ const OrgList = () => {
         <>
           <h1 className="title is-3">{selectedCategory.name}</h1>
           <h1 className="subtitle">We hope you find these resources helpful</h1>
-          {displayedOrgList.length > 0 ? (
+          {orgList.length > 0 ? (
             <>
               <IntroInfo />
-              <Columns>{orgs ? orgs : "Coming soon..."}</Columns>
+              <Columns>{orgs.length > 0 ? orgs : "Coming soon..."}</Columns>
             </>
           ) : (
             <>
